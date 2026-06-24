@@ -1,0 +1,94 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agoracle"
+version = "2.8.8"
+description = "Multi-model AI orchestration system — answers that surpass any single model"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn>=0.32.0",
+    "uvloop>=0.17.0",
+    "websockets>=10.0,<12",
+    "httptools==0.6.1",
+    "gunicorn>=21.2.0",
+    "httpx>=0.27.0",
+    "openai>=1.50.0",
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0.0",
+    "python-multipart==0.0.22",
+    "sentry-sdk[fastapi]==2.55.0",
+    "sse-starlette>=2.0.0",
+    "rich>=13.0.0",
+    "click>=8.1.0",
+    "tavily-python>=0.7.0",
+    "aiosqlite>=0.20.0",
+    "bcrypt>=4.0.0",
+    "python-magic>=0.4.27",
+    "cryptography>=46.0.5",
+]
+
+[project.optional-dependencies]
+sms = [
+    "alibabacloud-dysmsapi20170525>=4.5.0",
+    "alibabacloud-tea-openapi>=0.4.3",
+]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=5.0.0",
+]
+
+[project.scripts]
+agoracle = "agoracle.cli.main:cli"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+addopts = "--cov=agoracle --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["agoracle"]
+omit = ["*/test*", "*/__pycache__/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
+
+[tool.ruff]
+target-version = "py311"
+src = ["src"]
+
+[tool.ruff.lint]
+# Minimal error-only ruleset — don't enforce style, just catch real bugs
+select = [
+    "F821",   # undefined-name
+    "F823",   # undefined-local
+    "F811",   # redefined-unused-name
+    "E902",   # IO error (syntax)
+    "E711",   # comparison to None (use `is`)
+    "E712",   # comparison to True/False
+    "S102",   # exec
+    "S307",   # eval
+    "S608",   # SQL injection (hardcoded SQL)
+    "B006",   # mutable default argument
+    "B007",   # unused loop variable
+    "B018",   # useless expression
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S102", "S307", "S608", "B006", "F811"]
+# F821 on string-quoted type annotations is a false positive (TYPE_CHECKING pattern)
+"src/agoracle/domain/router.py" = ["F821"]
+"src/agoracle/services/streaming.py" = ["F821"]
+# S608: col is hardcoded from tuple, not user-controlled
+"src/agoracle/adapters/user/sqlite_user_store.py" = ["S608"]
+# F823: compute_scores is imported at module level (line 38), local shadow at 552 confuses ruff
+"src/agoracle/services/orchestrator.py" = ["F823"]

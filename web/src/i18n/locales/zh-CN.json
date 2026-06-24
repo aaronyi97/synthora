@@ -1,0 +1,1194 @@
+{
+  "api": {
+    "client": {
+      "errors": {
+        "answerGenerationTimedOut": "回答生成超时，已保留已生成内容",
+        "clarificationRequired": "需要补充问题信息后才能继续",
+        "connectionClosedUnexpectedly": "连接意外断开，请重试",
+        "noResponseBody": "未收到响应内容，请重试",
+        "parseFailed": "数据解析失败，请重试",
+        "questionConfirmationRequired": "问题需要确认后才能继续",
+        "requestTimedOut": "请求超时，请重试",
+        "responseTimedOut": "响应超时，请重试",
+        "roundtable": {
+          "connectionInterrupted": "圆桌连接中断，请重试",
+          "currentStage": "当前阶段",
+          "modelProcessingFailed": "{{phase}}：模型处理失败，请稍后重试",
+          "modelProcessingTimedOut": "{{phase}}：模型处理超时，请稍后重试",
+          "processingFailedLater": "圆桌处理失败，请稍后重试",
+          "processingFailedRetry": "圆桌处理失败，请重试",
+          "responseParseFailed": "圆桌响应解析失败，请重试",
+          "s2ModeratorTimedOut": "S2 主持人建立争议地图超时，请重试",
+          "s4ModeratorTimedOut": "S4 主持人生成决策建议超时，请重试",
+          "totalTimedOut": "圆桌整体处理超时，请重试"
+        },
+        "socratic": {
+          "preparationFailed": "苏格拉底准备失败，请重试",
+          "preparationTimedOut": "苏格拉底准备超时，请重试"
+        },
+        "streamInterruptedKeptContent": "流式连接中断，已保留已生成内容"
+      }
+    }
+  },
+  "common": {
+    "actions": {
+      "cancel": "取消",
+      "cancelCurrentRound": "取消本轮",
+      "closeRound": "关闭这轮",
+      "continueWaiting": "继续等待",
+      "editAgain": "我再改改",
+      "goToHistory": "去历史查看",
+      "newConversation": "新对话",
+      "refreshRetry": "刷新重试",
+      "restartCurrentRound": "重新发起本轮",
+      "retry": "重试",
+      "retryConnection": "重试连接",
+      "retryCurrentMode": "按当前模式重试",
+      "retrySameMode": "重试同模式",
+      "sendQuestion": "发送这个问题",
+      "switchToLight": "改用 Light",
+      "useOriginalQuestion": "使用原问题"
+    },
+    "app": {
+      "aiDisclosure": "本回答由 AI 生成，仅供参考，请自行核实重要信息。",
+      "backendUnavailable": {
+        "detail": "请稍后重试，或检查网络连接",
+        "title": "服务暂时不可用"
+      },
+      "clearLocalStorageConfirm": "清理 localStorage 并刷新页面？"
+    },
+    "cognitiveQuadrants": {
+      "knownKnown": {
+        "desc": "你知道自己知道的",
+        "label": "能力区"
+      },
+      "knownUnknown": {
+        "desc": "你知道自己不知道的",
+        "label": "学习区"
+      },
+      "unknownKnown": {
+        "desc": "你不知道自己知道的",
+        "label": "直觉区"
+      },
+      "unknownUnknown": {
+        "desc": "你不知道自己不知道的",
+        "label": "盲区"
+      }
+    },
+    "modes": {
+      "autoLabel": "Auto 智能路由",
+      "currentMode": "当前模式",
+      "deepLabel": "Deep 深度思考",
+      "deepName": "Deep",
+      "lightLabel": "Light 快速回答",
+      "lightName": "Light",
+      "researchLabel": "Research 天花板研究",
+      "researchName": "Research",
+      "roundtableName": "圆桌",
+      "socraticName": "苏格拉底"
+    },
+    "runtime": {
+      "startupError": "启动错误:"
+    },
+    "sidebar": {
+      "close": "关闭侧边栏",
+      "daysAgo": "{{count}}天前",
+      "deleteConfirm": "再次点击确认删除",
+      "empty": "开始提问，对话将显示在这里",
+      "groupEarlier": "更早",
+      "groupLast30Days": "30天内",
+      "groupLast7Days": "7天内",
+      "groupToday": "今天",
+      "history": "历史记录",
+      "hoursAgo": "{{count}}小时前",
+      "justNow": "刚刚",
+      "language": "语言",
+      "languageShortEn": "EN",
+      "languageShortZh": "中",
+      "logout": "退出登录",
+      "minutesAgo": "{{count}}分钟前",
+      "newConversation": "新对话"
+    }
+  },
+  "components": {
+    "actionBar": {
+      "copyFullText": "复制全文",
+      "download": {
+        "doc": "下载 .doc",
+        "pdf": "导出 PDF",
+        "title": "下载",
+        "txt": "下载 .txt"
+      },
+      "feedback": {
+        "helpful": "回答有帮助",
+        "problematic": "回答有问题"
+      },
+      "share": {
+        "close": "关闭",
+        "copied": "已复制!",
+        "targets": {
+          "copyLink": "复制链接",
+          "twitter": "X/Twitter",
+          "weibo": "微博"
+        },
+        "title": "分享"
+      }
+    },
+    "authPage": {
+      "apiStatus": {
+        "checking": "检测中...",
+        "healthy": "服务正常",
+        "unavailable": "服务不可达，请稍后重试"
+      },
+      "brandTagline": "好问题，值得好答案",
+      "errors": {
+        "passwordsMismatch": "两次密码输入不一致",
+        "passwordTooShort": "密码至少8位",
+        "usernameTooShort": "用户名至少2个字符"
+      },
+      "fields": {
+        "loginId": {
+          "label": "手机号 / 用户名",
+          "placeholder": "手机号或用户名"
+        },
+        "loginPassword": {
+          "label": "密码",
+          "placeholder": "请输入密码"
+        },
+        "registerDisplayName": {
+          "hint": "（选填）",
+          "label": "昵称",
+          "placeholder": "留空则与用户名相同"
+        },
+        "registerPassword": {
+          "hint": "（至少8位）",
+          "label": "密码",
+          "placeholder": "设置密码"
+        },
+        "registerPasswordConfirm": {
+          "label": "确认密码",
+          "placeholder": "再次输入密码"
+        },
+        "registerUsername": {
+          "hint": "（登录用，2-30位）",
+          "label": "用户名",
+          "placeholder": "设置登录用户名"
+        }
+      },
+      "footer": "多位 AI 专家综合分析，让你的每个问题都得到认真对待",
+      "privacyPolicy": "隐私政策",
+      "registerCreditsHint": {
+        "credits": "300 积分",
+        "prefix": "注册即送",
+        "suffix": "，够用约 5 次深度分析"
+      },
+      "submit": {
+        "login": "登录",
+        "processing": "处理中...",
+        "registerReward": "注册并获得 300 积分",
+        "retryAfter": "请等待 {{seconds}}s"
+      },
+      "tabs": {
+        "login": "登录",
+        "registerTrial": "注册试用"
+      }
+    },
+    "companionBubble": {
+      "actionDescription": {
+        "modeDeep": "继续深入拆解这个问题",
+        "modeLight": "先更快拿到一版可用结果",
+        "modeResearch": "补足证据链并整理成更完整结论",
+        "queryFollowup": "继续沿当前回答往下深挖",
+        "querySingle": "先走更快的一条路径",
+        "roundtable": "切到圆桌讨论，看不同立场怎么碰撞"
+      },
+      "eta": {
+        "minutes": "约 {{count}} 分钟",
+        "seconds": "约 {{count}}s"
+      },
+      "foldLabel": "Synthora 建议",
+      "header": "AI 助手建议"
+    },
+    "companionRouteBubble": {
+      "actionDescription": {
+        "cancel": "结束这轮等待，稍后再回来",
+        "queryDeep": "继续等待更深入的分析结果",
+        "queryLight": "先保底拿到一版可用结果",
+        "querySingle": "先切换到更快的一条路径"
+      },
+      "autoContinue": "自动继续 ({{count}}s)",
+      "moreOptions": "更多选项 ({{count}})",
+      "routeStatus": {
+        "analyzing": "分析中",
+        "label": "路线",
+        "models": "{{count}} 模型",
+        "runningHint": "当前链路已经在运行中；只有你主动切换，系统才会改走别的路线。",
+        "switchHint": "如果你现在不想按当前路线继续等，可以直接切换："
+      }
+    },
+    "consentBanner": {
+      "acknowledge": "知道了",
+      "body": "Synthora 会将您的问题发送给第三方 AI 模型（Claude、Gemini 等）以生成回答，并在本地保存使用统计。请勿在问题中包含敏感个人信息。",
+      "noticePrefix": "继续使用即表示您已阅读并同意",
+      "noticeSuffix": "。",
+      "privacyPolicy": "隐私政策"
+    },
+    "creditBar": {
+      "creditCost": "-{{count}}/次",
+      "unit": "次",
+      "usedLifetime": "{{count}}次"
+    },
+    "enhancedMarkdown": {
+      "chart": {
+        "dataMissing": "图表数据格式错误：需要 data 数组",
+        "parseFailed": "图表 JSON 解析失败：{{error}}"
+      },
+      "code": {
+        "copied": "已复制 ✓",
+        "copy": "复制"
+      },
+      "mermaid": {
+        "renderFailed": "图表渲染失败，请检查语法"
+      },
+      "sources": {
+        "collapse": "收起",
+        "expand": "展开",
+        "fallback": "来源",
+        "label": "来源",
+        "moreCount": "+{{count}} 更多",
+        "sourceNumber": "来源 {{num}}"
+      }
+    },
+    "errorBoundary": {
+      "reload": "重新加载",
+      "subtitle": "请尝试刷新页面，如问题持续请联系支持",
+      "title": "页面出现了一个错误"
+    },
+    "header": {
+      "actions": {
+        "closeMenu": "关闭菜单",
+        "logout": "退出登录",
+        "openMenu": "打开菜单"
+      },
+      "nav": {
+        "history": "历史记录"
+      },
+      "status": {
+        "historyNotSaved": "历史未保存",
+        "normal": "正常"
+      }
+    },
+    "layout": {
+      "actions": {
+        "openSidebar": "打开侧边栏"
+      },
+      "share": {
+        "button": "分享对话",
+        "copyContent": "复制内容",
+        "empty": "暂无可分享内容",
+        "nativeTitle": "Synthora 对话分享",
+        "roles": {
+          "assistant": "Synthora",
+          "user": "我"
+        },
+        "systemShare": "系统分享"
+      }
+    },
+    "loadingOracle": {
+      "badge": "分析中",
+      "stages": {
+        "default": {
+          "analyzing": "多位专家正在分析你的问题...",
+          "comparing": "评估与比较不同观点...",
+          "dispatching": "正在分发给专家团队...",
+          "polishing": "精炼最终回答...",
+          "synthesizing": "综合最强答案...",
+          "validating": "检验答案质量..."
+        },
+        "socratic": {
+          "analyzing": "多位专家正在分析你的问题...",
+          "dispatching": "正在分发给专家团队...",
+          "generating": "生成引导性问题...",
+          "identifying": "识别关键争议点...",
+          "mapping": "映射观点之间的分歧...",
+          "preparing": "准备苏格拉底对话..."
+        }
+      }
+    },
+    "modeSelector": {
+      "close": "关闭模式选择",
+      "fallback": {
+        "auto": {
+          "desc": "智能路由",
+          "detail": "AI 自动选择最佳模式和模型"
+        },
+        "deep": {
+          "desc": "3~5 分钟",
+          "detail": "复杂分析、技术问题、需要深度推理"
+        },
+        "research": {
+          "desc": "5~10 分钟",
+          "detail": "研究报告、多角度综合、高要求写作"
+        },
+        "socratic": {
+          "desc": "互动对话",
+          "detail": "训练思维、学习新领域、想自己想清楚"
+        }
+      },
+      "webSearch": {
+        "disabled": "联网搜索 未开启",
+        "enabled": "联网搜索 已开启"
+      }
+    },
+    "queryInput": {
+      "defaultFileQuestion": "请分析这些文件",
+      "fileChip": {
+        "document": "文档",
+        "image": "图片",
+        "remove": "移除 {{filename}}"
+      },
+      "keyboardHints": "Enter 发送 · Shift+Enter 换行 · Cmd/Ctrl+Enter 立即发送",
+      "modeHelp": {
+        "auto": "默认推荐。直接提问就行，Synthora 会自动判断是否需要更深的分析链路。",
+        "deep": "适合复杂分析、技术判断和需要拆解的问题，通常会多等一会儿。",
+        "light": "先更快拿到可用答案，适合开一个头或快速确认方向。",
+        "research": "适合需要证据链、结构化结论或高要求写作的议题，等待会更久。",
+        "roundtable": "适合看多方立场碰撞；如果你还不确定，优先用 Auto。",
+        "socratic": "更适合互动式思考训练；如果你只是先想问一个问题，优先用 Auto。"
+      },
+      "placeholder": "有什么想深入了解的？",
+      "send": "发送消息（Enter）",
+      "stop": "停止生成",
+      "upload": {
+        "button": "上传文件",
+        "dragToUpload": "松开以上传",
+        "errorFallback": "上传失败，请重试",
+        "filesOnlyPrompt": "将以「请分析这些文件」发送",
+        "selectFiles": "选择文件或图片",
+        "success": "上传成功",
+        "supportFormats": "支持图片与文档（jpg/png/webp/gif/pdf/txt/md/docx/xlsx/xls/csv）",
+        "uploading": "正在上传..."
+      }
+    },
+    "queryProgressBars": {
+      "eta": {
+        "minutes": "预计还需 {{count}} 分钟",
+        "seconds": "预计还需 {{count}}s"
+      },
+      "patience": {
+        "crossChecking": "仍在交叉比对观点，避免直接拼接冲突内容",
+        "hasContent": "已有内容生成，系统正在继续收束答案",
+        "searching": "仍在补证据链，完成后才会综合结论",
+        "waiting": "仍在等待关键阶段完成，可继续等、改用 Light 或取消"
+      },
+      "remove": "移除",
+      "selected": {
+        "contributorsDone": "已有 {{count}} 位专家返回中间结果，系统仍在继续收束。"
+      },
+      "status": {
+        "cancelled": "已取消",
+        "done": "已完成",
+        "interrupted": "已中断",
+        "longWait": "等待较久",
+        "streaming": "进行中"
+      },
+      "waitAction": {
+        "long": "这不是卡死，系统仍在推进；现在可继续等待，也可改用 Light、重试或取消本轮。",
+        "short": "当前仍在处理中；如果你现在不想继续等，可以直接取消本轮。"
+      },
+      "waitSummary": {
+        "deep": "Deep 正在汇总专家观点并交叉验证。",
+        "research": "Research 正在补齐证据链并压实结论。"
+      }
+    },
+    "researchTimeline": {
+      "collapsed": {
+        "done": "{{count}} 阶段完成"
+      },
+      "currentStage": "当前阶段：{{stage}}",
+      "detail": {
+        "cancelled": "研究过程在这个阶段已取消，你可以展开查看已完成的部分。",
+        "done": "研究阶段已完成，你可以展开查看完整过程。",
+        "error": "研究过程在这个阶段发生错误，你可以展开查看已完成的部分。",
+        "streaming": "Research 正在继续补齐证据与收敛结论，当前阶段完成后会自动进入下一步。",
+        "streamingHint": "Research 会按顺序补证据、交叉验证、再收束成结论，所以中途看起来会比普通回答更慢。"
+      },
+      "header": {
+        "elapsed": "已运行 {{elapsed}}",
+        "progress": "{{done}}/{{total}} 阶段",
+        "title": "研究过程"
+      },
+      "status": {
+        "cancelled": "已取消",
+        "done": "全部完成",
+        "error": "发生错误"
+      }
+    },
+    "responseDisplay": {
+      "bestSingle": {
+        "default": "精选回答 — 一位专家的回答明显更优，已直接采用",
+        "research": "Research 策略直采：本轮研究已完成评估，因单个专家答案明显更优，直接采用为最终结果"
+      },
+      "degradedWarning": "系统当前可能未以最优状态运行，本次回答质量可能有所降低。如结果不满意，建议稍后重试。",
+      "difficulty": {
+        "easy": "有明确答案",
+        "hard": "见仁见智",
+        "medium": "各有道理"
+      },
+      "divergence": {
+        "coreConsensus": "核心共识",
+        "label": "交叉验证",
+        "labelWithCount": "交叉验证 · {{count}} 个差异点",
+        "mainDifferences": "主要差异"
+      },
+      "emptyResponse": "问题：{{question}}\n\n⚠️ 未收到有效回答内容，请重试一次或切换模式后再试。如问题持续出现，请添加微信 {{supportContact}} 反馈。",
+      "factWarnings": {
+        "body": "以下内容经实时搜索核查发现可能存在出入，仅供参考。最终答案已尽量采纳搜索来源。",
+        "label": "⚠️ 事实核查提示 ({{count}} 条)"
+      },
+      "gates": {
+        "bestSingle": "精选回答",
+        "lowConfidence": "仅供参考",
+        "synthesized": "综合分析"
+      },
+      "keyInsights": {
+        "label": "关键洞察 ({{count}})"
+      },
+      "lowConfidence": {
+        "title": "专家共识度较低，建议："
+      },
+      "meta": {
+        "consensus": "专家共识度 {{percent}}%",
+        "expertCount": "{{count}} 位专家",
+        "fastPath": "极速"
+      },
+      "research": {
+        "directResult": "📋 Research 直采结果",
+        "report": "📋 研究报告"
+      }
+    }
+  },
+  "errors": {
+    "genericActionFailed": "操作失败，请重试",
+    "networkConnectionFailed": "连接失败，请刷新页面重试（若持续出现请确认使用 localhost:5173 访问）",
+    "noValidResponseReceived": "⚠️ 未收到有效回答内容，请重试。"
+  },
+  "hooks": {
+    "useConversations": {
+      "newConversationTitle": "新对话"
+    },
+    "useQueryTasks": {
+      "errors": {
+        "allModelsFailed": "当前所有模型暂时不可用。",
+        "quotaLimited": "额度受限：当前模式暂时不可用。",
+        "replacedByNewQuery": "已被新查询替换",
+        "requestFailed": "请求失败",
+        "timeout": "等待超时：系统已停止当前生成。",
+        "userCancelled": "已取消"
+      },
+      "initial": {
+        "deep": "Deep 会先召集专家，再交叉验证并整理答案。",
+        "default": "系统正在建立本轮请求。",
+        "research": "Research 会先建立检索计划，再并行搜证与综合。",
+        "stage": "正在连接专家..."
+      },
+      "questionConfirmation": {
+        "doneStage": "问题优化完成"
+      },
+      "stageDetail": {
+        "defaultDeep": "Deep 仍在等待关键观点汇总后再输出综合结论。",
+        "defaultResearch": "Research 仍在构建更完整的证据链与结论。",
+        "fanOut": "多位专家正在并行给出初步观点，系统会等主要意见到齐后再继续。",
+        "gapSearch": "当前正在补足上一轮分析里缺失的证据，避免关键结论缺依据。",
+        "moa": "系统正在对比不同观点与证据，避免把冲突内容直接拼接成答案。",
+        "pipeline": {
+          "deep": "Deep 正在拆解问题并安排专家分工，确认后续重点。",
+          "research": "Research 正在建立检索与验证计划，确认要先补哪些证据。"
+        },
+        "planner": {
+          "deep": "系统正在明确问题边界和验证重点，避免后面只给出泛泛回答。",
+          "research": "系统正在把问题拆成可检索的子目标，后面会按计划搜集资料。"
+        },
+        "refinement": "系统正在压缩冗余并补全关键细节，尽量避免给出半成品。",
+        "search": "系统正在补齐资料和证据链，完成后才会进入综合与结论输出。",
+        "synthesis": "已有材料正在汇总成一版可读答案，还需要做一致性收束。"
+      },
+      "stageLabels": {
+        "analyzing": "正在分析...",
+        "extraction": "整理观点中...",
+        "fanOut": "专家思考中...",
+        "gapSearch": "补充搜索中...",
+        "moaLayer2": "交叉验证中...",
+        "pipeline": "正在准备...",
+        "planner": "分析问题中...",
+        "refinement": "打磨答案中...",
+        "search": "搜索资料中...",
+        "synthesis": "综合答案中..."
+      },
+      "waitIssue": {
+        "cancelledDetail": "你主动结束了这一轮等待，可以稍后重试或改用 Light。",
+        "cancelledStage": "已取消"
+      }
+    }
+  },
+  "pages": {
+    "capabilityMap": {
+      "empty": {
+        "subtitle": "继续向 Synthora 提问，系统会追踪你在各领域的探索深度，逐步构建你的能力地图。",
+        "title": "还没有足够的数据"
+      },
+      "errors": {
+        "abandonFailed": "放弃计划失败",
+        "activateFailed": "激活计划失败",
+        "loadFailed": "加载能力地图失败"
+      },
+      "levelLabels": {
+        "l1": "L1 入门",
+        "l2": "L2 熟悉",
+        "l3": "L3 深入",
+        "l4": "L4 精通",
+        "l5": "L5 专家"
+      },
+      "plan": {
+        "accept": "接受",
+        "challenges": "挑战 {{engaged}}/{{delivered}}",
+        "status": {
+          "active": "进行中",
+          "proposed": "待接受"
+        }
+      },
+      "range": {
+        "early": "早期",
+        "recent": "最近"
+      },
+      "sections": {
+        "cognitiveQuadrants": "认知象限",
+        "growthPlans": "成长计划",
+        "reasoningTrend": "推理质量趋势",
+        "topicDepth": "话题深度"
+      },
+      "stats": {
+        "completedPlans": "完成计划",
+        "deepTopics": "深入(L3+)",
+        "exploredTopics": "探索话题",
+        "reasoningQuality": "推理质量"
+      },
+      "subtitle": "追踪你的知识探索深度和认知成长轨迹",
+      "title": "能力地图",
+      "topic": {
+        "frequency": "{{count}}次",
+        "growthPlanProgress": "成长计划进行中 {{percent}}%"
+      }
+    },
+    "history": {
+      "continueQuestion": "在此基础上继续提问",
+      "divergence": {
+        "consensus": "共识度 {{percent}}%",
+        "title": "专家分歧"
+      },
+      "empty": {
+        "noHistory": "暂无历史记录",
+        "noMatches": "无匹配记录"
+      },
+      "errors": {
+        "loadFailed": "加载历史记录失败"
+      },
+      "insights": {
+        "title": "核心洞察"
+      },
+      "loadMore": "加载更多（剩余 {{count}} 条）",
+      "meta": {
+        "twoVersions": "含2个版本"
+      },
+      "quality": {
+        "bestSingleGood": {
+          "desc": "单专家精选答案",
+          "label": "良好"
+        },
+        "bestSingleHigh": {
+          "desc": "专家精选，答案准确可靠",
+          "label": "高质量"
+        },
+        "good": {
+          "desc": "多专家综合，部分观点有分歧",
+          "label": "良好"
+        },
+        "high": {
+          "desc": "多专家综合验证，答案可靠",
+          "label": "高质量"
+        },
+        "reference": {
+          "desc": "答案存在不确定性，建议多方核实",
+          "label": "仅供参考"
+        },
+        "veryHigh": {
+          "desc": "多专家高度共识，答案非常可靠",
+          "label": "极高质量"
+        }
+      },
+      "searchPlaceholder": "搜索历史...",
+      "tabs": {
+        "bestSingle": "单一最佳版",
+        "final": "聚合综合版"
+      },
+      "totalCount": "共 {{count}} 条"
+    },
+    "home": {
+      "autoResolved": {
+        "modeCount": "· {{count}} 模型",
+        "route": "Auto → {{mode}}"
+      },
+      "badges": {
+        "modeUpgrade": "模式升级 →"
+      },
+      "discussionBadge": "专家讨论中",
+      "emptyState": {
+        "subtitle": "多位专家为你分析 · 不止给答案，更给洞察",
+        "title": "有什么想深入了解的？"
+      },
+      "examples": {
+        "businessEmail": "帮我写一封得体的商务邮件",
+        "marsPlan": "马斯克的火星计划到底靠不靠谱",
+        "quantumCryptography": "量子计算对密码学的影响",
+        "reactVsVue": "比较 React 和 Vue 的架构差异"
+      },
+      "failure": {
+        "feedback": "系统正在测试期，正在快速迭代优化中。如该问题持续出现，欢迎添加微信 {{wechat}} 反馈，我们会尽快处理。",
+        "partialResult": "综合分析未完成，以下为专家初步回答"
+      },
+      "modePlaceholders": {
+        "auto": "有什么想深入了解的？",
+        "deep": "深入分析一个话题…",
+        "light": "快速问一个问题…",
+        "research": "研究一个复杂议题…"
+      },
+      "offlineBanner": {
+        "message": "系统暂时无法连接，正在快速修复中",
+        "retryConnection": "重试连接",
+        "retrying": "重试中…"
+      },
+      "questionConfirmation": {
+        "intro": "我把问题整理成更清晰的问法："
+      },
+      "refreshRecovery": {
+        "checking": {
+          "detail": "你刷新后，原来的流式连接已经断开。系统会先去历史里找这一轮是否已经完成并补回答案。",
+          "title": "正在检查这轮是否已在后台完成…"
+        },
+        "interrupted": {
+          "detail": "如果后台其实已经跑完，刷新后它会出现在历史里；如果还没完成，只能重新发起同一个问题。",
+          "title": "这一轮在刷新时中断，当前页面不能继续接着生成。"
+        }
+      },
+      "sessionIndicator": {
+        "turn": "对话第 {{count}} 轮"
+      },
+      "skeleton": {
+        "analyzingQuestion": "正在分析你的问题…"
+      },
+      "versionCard": {
+        "title": "版本 {{version}}｜{{label}}"
+      },
+      "versionLabels": {
+        "additionalOptimizing": "附加优化中...",
+        "crossReviewImprovement": "交叉评审改进",
+        "fastestAnswer": "最快回答",
+        "finalSynthesis": "最终综合",
+        "generating": "生成中...",
+        "preliminaryAggregation": "初步聚合"
+      },
+      "wait": {
+        "actionSummary": {
+          "long": "系统还在推进，不是卡死；你现在可以继续等待，也可以直接重试、改用 Light 或取消本轮。",
+          "short": "当前建议先继续等待；如果你现在不想等，可以直接取消本轮。"
+        },
+        "coach": {
+          "contributorsDone": "已响应 {{count}} 位专家",
+          "currentPhase": "当前阶段：{{stage}}",
+          "elapsed": "已等待 {{elapsed}}",
+          "stageElapsed": "本阶段 {{elapsed}}",
+          "systemProgress": "系统仍在正常推进这一步，没有卡住；Deep / Research 常见的慢点通常出现在搜证、交叉验证和最终收束。"
+        },
+        "issues": {
+          "allModelsFailed": {
+            "detail": "这通常是上游模型短时波动。你可以直接重试同模式，或先改用 Light 保底拿到可用结果。",
+            "title": "当前模型链路暂不可用"
+          },
+          "quotaLimited": {
+            "detail": "{{modeLabel}} 暂时不可继续，最直接的恢复路径是改用 Light；若稍后额度恢复，也可以再回到当前模式。",
+            "title": "当前模式额度受限"
+          },
+          "timeout": {
+            "detail": "本轮 {{modeLabel}} 已因超时停止；如果你还想继续，只能重新发起同模式，或先改用 Light 快速拿结果。",
+            "title": "这一轮等待已结束"
+          },
+          "userCancelled": {
+            "detail": "当前这轮已停止；如果你还想问同一个问题，可以立即重试，或直接改用 Light 更快拿到结果。",
+            "title": "你已结束本轮等待"
+          }
+        },
+        "longPrompt": {
+          "detail": "这通常意味着系统还在补证据或做收束，不代表这轮已经失败。",
+          "title": "已等待 {{elapsed}}，系统仍停留在“{{stage}}”。"
+        },
+        "reasons": {
+          "crossChecking": "系统正在对比不同观点，避免把冲突内容直接拼成答案。",
+          "polishing": "系统正在压缩冗余并补齐关键细节，尽量避免给出半成品。",
+          "processing": "系统仍在处理中。",
+          "searching": "系统正在补齐证据链，完成后才会进入综合结论。",
+          "synthesizing": "已有材料正在汇总成一版答案，仍需做一致性收束。"
+        },
+        "waitingState": {
+          "contributorsDone": "({{count}} 位专家已响应)"
+        }
+      }
+    },
+    "privacy": {
+      "back": "返回",
+      "lastUpdated": "最后更新：2026年2月",
+      "sections": {
+        "about": {
+          "body": "Synthora（以下简称“本服务”）是一款多模型 AI 智能编排系统，旨在提供高质量的问答与认知辅助服务。本服务目前处于内测阶段，由个人开发者运营。",
+          "title": "1. 关于 Synthora"
+        },
+        "contact": {
+          "body": "如对隐私政策有疑问，请通过微信联系：{{wechat}}",
+          "title": "8. 联系方式"
+        },
+        "cookies": {
+          "body": "本服务仅使用必要的会话 Cookie（HttpOnly、Secure），用于维持登录状态。不使用追踪 Cookie 或第三方广告 Cookie。",
+          "title": "7. Cookie"
+        },
+        "dataCollected": {
+          "items": {
+            "accountInfo": "账户信息：用户名、加密存储的密码哈希",
+            "queryContent": "查询内容：您向 Synthora 提交的问题及 AI 回答",
+            "technicalData": "技术数据：IP 地址（仅用于安全防护，不用于跟踪）",
+            "usageBehavior": "使用行为：查询模式、话题频率、模式使用历史（用于个性化推荐，可关闭）"
+          },
+          "title": "2. 我们收集的数据"
+        },
+        "storageSecurity": {
+          "items": {
+            "cookieStorage": "会话 token 存储于 HttpOnly Cookie，防止 XSS 窃取",
+            "passwordHashing": "密码使用 bcrypt 加密存储，不存储明文",
+            "serverLocation": "数据存储于服务提供方配置的部署区域"
+          },
+          "title": "5. 数据存储与安全"
+        },
+        "thirdPartyModels": {
+          "body": "您的问题将被发送至第三方 AI 服务提供商（包括但不限于 Claude、Gemini、DeepSeek、Kimi、Perplexity）。这些提供商有各自的隐私政策。请注意，请勿在问题中包含敏感个人信息。",
+          "title": "4. 第三方 AI 模型"
+        },
+        "usagePurpose": {
+          "items": {
+            "answerService": "提供 AI 问答服务，将您的问题转发给配置的 AI 模型",
+            "personalization": "个性化功能：话题深度追踪、认知画像（须明确开启同意）",
+            "security": "安全防护：防止滥用、限速",
+            "serviceImprovement": "服务改进：匿名使用统计"
+          },
+          "title": "3. 数据使用目的"
+        },
+        "yourRights": {
+          "items": {
+            "dataAccess": {
+              "detail": "：可在“个人中心”导出你的所有数据",
+              "label": "数据访问"
+            },
+            "deleteAccount": {
+              "detail": "：可在“个人中心”永久删除账户及全部数据",
+              "label": "删除账户"
+            },
+            "deleteCognitiveData": {
+              "detail": "：可在“个人中心”单独删除认知画像数据",
+              "label": "删除认知数据"
+            },
+            "disableTracking": {
+              "detail": "：可在“个人中心”随时关闭认知追踪",
+              "label": "关闭追踪"
+            }
+          },
+          "title": "6. 您的权利"
+        }
+      },
+      "title": "隐私政策"
+    },
+    "profile": {
+      "accountManagement": {
+        "deleteAccount": {
+          "action": "删除账户",
+          "subtitle": "永久删除账户及全部数据，不可恢复",
+          "title": "删除账户"
+        },
+        "export": {
+          "action": "导出",
+          "subtitle": "下载你的所有数据（JSON 格式）",
+          "title": "数据导出"
+        },
+        "privacy": {
+          "action": "查看 →",
+          "subtitle": "查看数据使用和存储说明",
+          "title": "隐私政策"
+        },
+        "title": "账户管理"
+      },
+      "actions": {
+        "deleteAllCognitiveData": "删除所有认知数据",
+        "exportAllData": "导出所有数据"
+      },
+      "behavior": {
+        "basedOnQueries": "基于 {{count}} 次查询",
+        "convergent": "收敛",
+        "deepenedTopics": "深入话题",
+        "divergent": "发散",
+        "empty": {
+          "subtitle": "继续使用 Synthora，我会逐渐发现你的思维模式和探索习惯。",
+          "title": "数据还不够多"
+        },
+        "explorationStyle": "探索风格",
+        "favoriteMode": "常用模式",
+        "newDirections": "新方向",
+        "noLabels": "观察模式，不贴标签",
+        "peakHours": "活跃时段",
+        "usagePatterns": "使用模式"
+      },
+      "deleteAccount": {
+        "confirmAction": "确认永久删除",
+        "confirmTitle": "确认删除账户？",
+        "deleteFailed": "删除账户失败，请稍后重试",
+        "description": "将永久删除你的账户、所有查询历史、认知画像及使用数据。删除后无法恢复，请确认你已导出所需数据。",
+        "irreversible": "此操作不可撤销",
+        "passwordPlaceholder": "当前密码",
+        "passwordPrompt": "请输入当前账户密码以确认删除",
+        "passwordRequired": "请输入当前账户密码以确认删除"
+      },
+      "deleteCognitiveData": {
+        "confirm": "确定要删除所有认知数据吗？此操作不可撤销。"
+      },
+      "errors": {
+        "deleteFailed": "删除失败",
+        "exportFailed": "导出失败",
+        "loadFailed": "加载画像数据失败",
+        "updateSettingsFailed": "更新设置失败"
+      },
+      "growth": {
+        "empty": {
+          "subtitle": "继续提问，系统会追踪你在每个话题上的探索深度。",
+          "title": "还没有话题深度数据"
+        },
+        "expertise": "专业度 {{percent}}%",
+        "explorationCount": "{{count}}次探索",
+        "stats": {
+          "deepTopics": "深入话题 (L3+)",
+          "exploredTopics": "探索话题",
+          "growthScore": "成长分数"
+        },
+        "topicDepthLabel": "L{{depth}} {{label}}",
+        "topicDepthProgress": "话题深度进度"
+      },
+      "modeLabels": {
+        "deep": "Deep 深度思考",
+        "light": "Light 快速综合",
+        "research": "Research 全面研究",
+        "socratic": "苏格拉底 思维训练"
+      },
+      "quota": {
+        "remaining": "剩余 / {{limit}}"
+      },
+      "range": {
+        "first": "首次",
+        "latest": "最新"
+      },
+      "sections": {
+        "behaviorInsights": "行为洞察",
+        "dailyQuota": "今日配额",
+        "growthMap": "成长地图",
+        "socraticGrowth": "苏格拉底成长"
+      },
+      "socratic": {
+        "cognitiveQuadrants": "认知象限（约哈里窗口）",
+        "dialogueQualityTitle": "第{{index}}次对话：{{percent}}%",
+        "empty": {
+          "subtitle": "试试苏格拉底模式，开始追踪你的推理质量、思维盲点和认知成长。",
+          "title": "还没有苏格拉底对话记录"
+        },
+        "growthZoneTopics": "成长区话题",
+        "reasoningTrend": "推理质量趋势",
+        "stats": {
+          "completionRate": "完成率",
+          "reasoningQuality": "推理质量",
+          "sessions": "对话次数"
+        }
+      },
+      "subtitle": "你的思维模式 — 观察而非标签",
+      "title": "认知画像",
+      "tracking": {
+        "disabled": "追踪关闭",
+        "enabled": "追踪开启"
+      }
+    },
+    "roundtable": {
+      "actions": {
+        "back": "返回",
+        "newRoundtable": "发起新的圆桌讨论",
+        "send": "发送",
+        "start": "开始圆桌讨论"
+      },
+      "badges": {
+        "echoChamberRisk": "⚠️ 回音壁风险",
+        "recommendedFocus": "推荐深入",
+        "stanceChanged": "立场变化"
+      },
+      "decision": {
+        "conditional": "⚡ 条件结论",
+        "confidence": "把握度",
+        "confidenceLabel": "当前结论的把握度",
+        "degradedPrefix": "⚠️ 降级：",
+        "draft": "📝 草案",
+        "keyReasons": "关键原因",
+        "recommendedAction": "🎯 推荐行动",
+        "recommendation": "✅ 推荐结论",
+        "stanceShifts": "↪ 立场演变",
+        "title": "📋 决策建议",
+        "unresolvedItems": "❓ 未解决事项",
+        "valuePreferenceChangesConclusion": "🔍 你的价值取向决定结论",
+        "whatChangesMind": "🔄 结论会翻转当"
+      },
+      "dispute": {
+        "allDisagreements": "⚡ 全部分歧",
+        "collapse": "收起",
+        "consensus": "✅ 共识",
+        "debateRecord": "交锋记录",
+        "debateRecords": "交锋记录",
+        "discussionTopic": "讨论议题",
+        "evidenceSummary": "{{experts}} 位专家",
+        "evidenceSummaryWithDebates": "{{experts}} 位专家 · {{debates}} 条交锋",
+        "expand": "展开",
+        "expertStances": "专家立场",
+        "expertTimedOut": "该专家未能在规定时间内完成分析",
+        "failed": "失败",
+        "fullDisputeMap": "完整争议地图",
+        "keyArguments": "▸ 关键论据",
+        "stance": "观点",
+        "topicPrefix": "议题：",
+        "viewDetailedCollapsed": "查看专家详细分析 ▸",
+        "viewDetailedExpanded": "查看专家详细分析 ▾"
+      },
+      "errors": {
+        "actionFailed": "圆桌操作失败",
+        "autoDraftRecovered": "上次圆桌已进入自动草案，已为您恢复结果。",
+        "offlineNotice": "当前网络已断开，圆桌流式结果可能中断。网络恢复后再试。",
+        "phaseChanged": "当前圆桌阶段已变化（{{state}}），已回滚到可用状态。",
+        "sessionEnded": "当前圆桌已结束，请重新开始。",
+        "sessionExpiredRestarted": "上次会话已过期，已为您重新发起同一问题。",
+        "sessionRestoreFailedRestarted": "上次会话恢复失败，已为您重新发起同一问题。",
+        "startFailed": "圆桌启动失败",
+        "submitChoiceFailed": "提交选择失败，请重试。",
+        "unsuitablePrefix": "该问题不适合圆桌讨论："
+      },
+      "fallback": {
+        "anotherExpert": "另一位专家",
+        "leftSideUnclear": "这一侧的判断还不够清晰",
+        "oneExpert": "一位专家",
+        "rightSideUnclear": "另一侧的判断还不够清晰",
+        "riskAndExecution": "风险与执行确定性",
+        "whyItMatters": "这会直接影响后续建议更偏向哪一种行动。"
+      },
+      "header": {
+        "questionPlaceholder": "提交一个需要多角度交锋的决策问题…",
+        "title": "专家圆桌讨论"
+      },
+      "phases": {
+        "awaitingChoiceA": "专家分析完成，等待你选择下一步",
+        "awaitingChoiceB": "交锋完成，等待你选择下一步",
+        "complete": "圆桌讨论完成",
+        "debating": "专家正在围绕核心分歧交锋…",
+        "gatheringExperts": "正在召集专家…",
+        "moderatorExtracting": "主持人正在从专家意见中提炼核心分歧…",
+        "progressExpertsDone": "{{done}}/{{total}} 位专家已完成",
+        "recommendationGenerating": "正在生成最终决策建议…"
+      },
+      "responseTypes": {
+        "concede": "让步",
+        "expand": "补充",
+        "maintain": "坚持",
+        "rebut": "反驳"
+      },
+      "spotlight": {
+        "dependsOnYou": "这取决于你",
+        "mattersBecause": "这很重要，因为",
+        "moderatorSuggestion": "主持人建议你先判断这一点",
+        "summarySingle": "{{topic}}——{{leftLead}} 目前认为 {{leftClaim}}。",
+        "summaryVs": "{{topic}}——{{leftLead}} 认为 {{leftClaim}}；{{rightLead}} 认为 {{rightClaim}}。",
+        "valueGuide": "你的选择可能取决于——如果你更看重 {{preferredValue}}，倾向 {{leftPosition}}；如果你更看重 {{alternativeValue}}，倾向 {{rightPosition}}。"
+      },
+      "types": {
+        "consensusStrength": {
+          "moderate": "中",
+          "strong": "强",
+          "weak": "弱"
+        },
+        "disputeType": {
+          "assumption": "假设",
+          "factual": "事实",
+          "priority": "优先级",
+          "value": "价值"
+        }
+      },
+      "userActionPanel": {
+        "inputPlaceholder": "补充你的场景约束或额外信息…",
+        "primaryA": {
+          "description": "专家们会围绕关键分歧正式交锋",
+          "title": "让专家辩论这条分歧"
+        },
+        "primaryB": {
+          "description": "综合所有专家意见和辩论结果",
+          "title": "给我最终建议"
+        },
+        "promptA": "专家们在这个问题上已经有明显分歧。你想怎么处理？",
+        "promptB": "现在已经有一轮交锋结果。你想怎么处理这份分析？",
+        "secondaryA": {
+          "description": "跳过辩论，基于现有分析给你决策建议",
+          "title": "直接给我综合建议"
+        },
+        "secondaryB": {
+          "description": "让专家继续辩论",
+          "title": "再深入一轮"
+        },
+        "tertiaryDescriptionA": "加入你的信息或偏好，影响后续方向",
+        "tertiaryDescriptionB": "辩论后有新想法？加入影响最终结论",
+        "tertiaryTitleA": "我想补充一个条件",
+        "tertiaryTitleB": "补充新信息"
+      }
+    },
+    "socratic": {
+      "actions": {
+        "backHome": "返回首页",
+        "continueAsking": "继续提问",
+        "revealAnswer": "揭示答案"
+      },
+      "continueQuestion": "继续苏格拉底对话",
+      "errors": {
+        "connectionFailed": "连接失败",
+        "revealFailed": "揭示失败",
+        "sendFailed": "发送失败",
+        "sessionExpired": "苏格拉底对话会话已过期或无法恢复。",
+        "sessionExpiredHint": "请返回首页重新开始对话。"
+      },
+      "inputPlaceholder": "分享你的思考... 或输入「揭示答案」查看专家分析",
+      "modeLabel": "苏格拉底模式",
+      "phase1": {
+        "analyzing": "分析专家观点分歧...",
+        "consensus": "共识度",
+        "contributorProgress": "专家回复进度",
+        "divergenceCount": "{{count}} 个分歧点",
+        "expertLabel": "专家 {{index}}",
+        "expertUnit": "位",
+        "guiding": "生成引导问题...",
+        "prepare": "准备中...",
+        "thinking": "专家讨论中..."
+      },
+      "progress": {
+        "guidedRounds": "共进行了 {{count}} 轮引导对话",
+        "phaseNames": {
+          "converge": "收敛",
+          "deepen": "深化",
+          "diverge": "发散",
+          "explore": "探索"
+        },
+        "phaseSuffix": "阶段",
+        "readyToStart": "准备开始",
+        "roundNumber": "第 {{round}} 轮",
+        "roundsInfo": "{{round}}/{{maxRounds}} 轮",
+        "waitingToExplore": "{{count}} 个分歧点等待探索"
+      },
+      "recoveredSession": "已恢复会话。你可以继续提问，或输入「揭示答案」查看最终专家分析。",
+      "reveal": {
+        "anchoringDetected": "⚠ 检测到锚定偏差",
+        "blindSpots": "思维盲点：",
+        "cognitiveSnapshot": "认知快照",
+        "confirmationBiasDetected": "⚠ 检测到确认偏差",
+        "divergenceMap": "分歧地图",
+        "divergencePointCount": "{{count}} 个争议点",
+        "expertCount": "{{count}}位专家",
+        "nuanceRecognition": "细微辨识",
+        "reasoningDepth": "推理深度",
+        "title": "专家分析揭晓"
+      },
+      "thinkingShort": "思考中..."
+    },
+    "visibleSurface": {
+      "badges": {
+        "noAuthNoBackend": "无登录 / 无后端依赖"
+      },
+      "cards": {
+        "deep": {
+          "description": "用于检查高信息密度内容在研究态下的层级、边框和 Markdown 可读性。",
+          "title": "Deep / Research 回答卡"
+        },
+        "dispatcher": {
+          "description": "这里回放 canonical guidance 的 dispatcher 分支，不依赖后端推流即可核对 fold 态和动作区。",
+          "title": "Dispatcher Guidance 卡"
+        },
+        "light": {
+          "description": "要求截图里一眼能看出：主答卡、元信息、免责声明和动作条都比旧版更清楚。",
+          "title": "普通 light 回答卡"
+        }
+      },
+      "inputPreview": {
+        "lastSubmitted": "最近一次 mock 提交：",
+        "noneSubmitted": "尚未提交 mock 问题",
+        "placeholder": "在这里直接回放输入区、模式切换和发送动作的视觉状态…",
+        "title": "输入面板预览"
+      },
+      "mock": {
+        "base": {
+          "answer": "这是一段默认回答。",
+          "disclosure": "此页为前端视觉回放，便于在后端离线时核对 UI 表现。后端链路待验：guidance / reason_code / roundtable resume。",
+          "question": "普通问题的默认问题"
+        },
+        "deep": {
+          "answer": "量子计算对密码学的影响，核心不是“所有密码都会立刻失效”，而是**现有非对称体系会先受到结构性冲击**。\n\n### 关键影响\n- **RSA / ECC 风险最高**：Shor 算法理论上可以高效分解大整数和求离散对数。\n- **对称加密仍可延寿**：Grover 算法主要带来平方级加速，因此更长密钥通常就足以缓冲。\n- **真正难点在迁移**：证书体系、硬件模组、长期存档数据、合规窗口都需要一起改。\n\n### 工程上最现实的结论\n现在最该做的不是等待通用量子机落地，而是先完成密码资产盘点、建立加密敏捷性，并为后量子迁移预留演练窗口。",
+          "insights": {
+            "asymmetric": "非对称密码先受冲击，对称密码更多是参数升级问题。",
+            "migration": "迁移成本主要来自系统改造和证书链兼容，不是单一算法替换。"
+          },
+          "question": "量子计算会如何改变现代密码学的安全边界？"
+        },
+        "dispatcher": {
+          "followupLabel": "继续追问实现代价",
+          "followupQuestion": "继续展开讲讲落地实现代价",
+          "message": "这道题已经进入可继续深入的状态，建议从实现细节或边界条件里选一个方向展开。",
+          "question": "继续追问这个问题",
+          "roundtableLabel": "进入圆桌讨论",
+          "routeReason": "当前问题还存在可继续验证的工程层面分歧。"
+        },
+        "light": {
+          "answer": "因为 `render` 的职责应该只剩“根据当前状态描述 UI”。\n\n如果你在里面做副作用，例如发请求、直接改 DOM 或修改外部状态，会带来三个明显问题：\n\n1. React 可能重复调用渲染过程，这会让副作用被意外执行多次。\n2. 渲染顺序和提交顺序并不等价，副作用可能在错误时机发生。\n3. 组件会变得难测、难复用，也更难推断 bug 来源。\n\n更稳妥的做法是：把副作用放进 `useEffect`，把纯计算留在渲染阶段。引用资料见 [1][2]。",
+          "citations": {
+            "pureComponents": "React 官方关于纯组件和纯渲染的实践建议。",
+            "useEffect": "React 官方文档对副作用边界的说明。"
+          },
+          "question": "React 组件为什么要避免在 render 里做副作用？"
+        },
+        "tasks": {
+          "done": {
+            "question": "总结一份商务邮件模板",
+            "stage": "完成"
+          },
+          "streaming": {
+            "question": "比较 React Server Components 和传统 CSR 的边界",
+            "stage": "交叉验证",
+            "stageDetail": "正在核对性能收益、工程复杂度和调试代价。",
+            "streamTokens": "已有部分中间内容"
+          }
+        }
+      },
+      "progressPreview": {
+        "title": "进行中任务条预览"
+      },
+      "subtitle": "这个入口只回放前端可见面，方便直接核对普通 light 场景、deep/research 回答和 Dispatcher guidance。如果本地后端没起来，这里仍然能稳定看 UI。后端链路待验：guidance、reason_code、roundtable resume。",
+      "title": "前端视觉回放页"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "exclude": [
+    ".venv",
+    "venv",
+    "data",
+    "node_modules",
+    "**/__pycache__",
+    "**/*.pyc"
+  ]
+}

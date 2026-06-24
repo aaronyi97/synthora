@@ -1,0 +1,459 @@
+# Synthora — Model and Mode Configuration (v2.0)
+# SINGLE SOURCE OF TRUTH for model lineup and mode strategies.
+# model_name must match the EXACT string the API provider expects.
+#
+# v2.0 additions:
+#   - socratic mode (Phase 3 implementation, config reserved now)
+#   - output_depth defaults per mode (divergence visibility)
+#   - cognitive_profile_path for Growth Intent tracking
+#
+# v2.1 changes (2026-02-12):
+#   - Per-model max_tokens (thinking models ≥16384 to avoid truncation)
+#   - Per-model temperature (Kimi K2.5 requires exact values)
+#   - Kimi upgraded to K2.5 (kimi-k2.5) with thinking + 256K context
+#   - claude_opus_thinking added as Deep mode 5th contributor
+#   - Timeouts aligned with model capabilities
+
+# ============================================================
+# Models
+# ============================================================
+models:
+  gpt52:
+    name: "GPT-5.4 Low (Socratic)"
+    provider: openai
+    model_name: "gpt-5.4-2026-03-05"   # R2验证: 5.4(low) 比 5.2 快近一倍(5.2s vs 9.2s)，回答更精练，适合 Socratic 快节奏
+    reasoning_effort: "low"             # Socratic 要快不要深，low 档刚好
+    api_key_env: OPENAI_GPT52_API_KEY
+    base_url_env: OPENAI_BASE_URL
+    supports_search: true
+    timeout_seconds: 60
+    max_tokens: 4096
+    cost_per_1m_input: 5.00
+    cost_per_1m_output: 15.00
+
+  claude_sonnet:
+    name: "Claude Sonnet 4.6"
+    provider: openai
+    model_name: "claude-sonnet-4-6"
+    api_key_env_list:
+      - CLAUDE_SONNET_KEY
+      - CLAUDE_SONNET_KEY_2
+      - CLAUDE_SONNET_KEY_3
+      - CLAUDE_SONNET_KEY_4
+      - CLAUDE_SONNET_KEY_5
+      - CLAUDE_SONNET_KEY_6
+      - CLAUDE_SONNET_KEY_7
+      - CLAUDE_SONNET_KEY_8
+    base_url_env: CLAUDE_BASE_URL
+    supports_search: true
+    timeout_seconds: 60            # v2.8.8: fast model for quick tasks
+    max_tokens: 8192
+    cost_per_1m_input: 3.00
+    cost_per_1m_output: 15.00
+
+  claude_sonnet_thinking:
+    name: "Claude Sonnet 4.6 Thinking"
+    provider: openai
+    model_name: "claude-sonnet-4-6-thinking"
+    api_key_env_list:
+      - CLAUDE_SONNET_THINKING_KEY
+      - CLAUDE_SONNET_THINKING_KEY_2
+      - CLAUDE_SONNET_THINKING_KEY_3
+      - CLAUDE_SONNET_THINKING_KEY_4
+      - CLAUDE_SONNET_THINKING_KEY_5
+      - CLAUDE_SONNET_THINKING_KEY_6
+    base_url_env: CLAUDE_BASE_URL
+    supports_search: true
+    timeout_seconds: 360           # v2.8.8: heavy evaluator/judge, deep reasoning
+    max_tokens: 16384             # thinking token 需要大空间
+    cost_per_1m_input: 3.00
+    cost_per_1m_output: 15.00
+
+  claude_opus_thinking:
+    name: "Claude Opus 4.6 Thinking"
+    provider: openai
+    model_name: "claude-opus-4-6-thinking"
+    api_key_env_list:
+      - CLAUDE_OPUS_THINKING_KEY
+      - CLAUDE_OPUS_THINKING_KEY_2
+      - CLAUDE_OPUS_THINKING_KEY_3
+      - CLAUDE_OPUS_THINKING_KEY_4
+      - CLAUDE_OPUS_THINKING_KEY_5
+      - CLAUDE_OPUS_THINKING_KEY_6
+    base_url_env: CLAUDE_BASE_URL
+    supports_search: true
+    timeout_seconds: 360           # v2.8.8: heaviest model, complex reasoning
+    max_tokens: 16384             # 最重模型，不能截断
+    cost_per_1m_input: 5.00       # 单价 (USD/1M tokens)
+    cost_per_1m_output: 25.00     # 单价 (USD/1M tokens)
+
+  kimi:
+    name: "Kimi K2.5"
+    provider: openai             # v4.36: 切回 Moonshot 官方直连，稳定性优先
+    model_name: "kimi-k2.5"      # K2.5: 256K context, thinking, web search
+    api_key_env_list:
+      # 多账号 key 池（按需补充，逐个轮换）
+      - KIMI_OFFICIAL_API_KEY_1
+      - KIMI_OFFICIAL_API_KEY_2
+      - KIMI_OFFICIAL_API_KEY_3
+      - KIMI_OFFICIAL_API_KEY_4
+    base_url_env: KIMI_BASE_URL
+    proxy_env: ""                # optional: set to an env var name to route this model via HTTP/SOCKS proxy (leave empty for direct connection)
+    supports_search: true           # v2.8: 启用 Kimi 原生 $web_search — 中文实时搜索质量远优于 Tavily
+    search_style: kimi_builtin      # Moonshot 官方 builtin_function $web_search
+    timeout_seconds: 240           # v2.8.8: reasoning model, needs time for thinking
+    max_tokens: 32768
+    temperature: 1.0              # K2.5 thinking 模式强制 temperature=1
+    thinking_enabled: true        # §8.2: thinking 和 $web_search API互斥; Light=search, Deep/Research=thinking-only(v4.3)
+    # 官方按账号限流，多账号 key 轮换扩容由用户自行补充
+    cost_per_1m_input: 0.60
+    cost_per_1m_output: 2.40
+
+  deepseek_reasoner:
+    name: "DeepSeek V3.2 Reasoner"
+    provider: openai
+    model_name: "deepseek-reasoner"
+    api_key_env_list:
+      - DEEPSEEK_API_KEY
+    base_url_env: DEEPSEEK_BASE_URL
+    supports_search: false
+    timeout_seconds: 240           # v2.8.8: reasoning model, chain-of-thought needs time
+    max_tokens: 16384             # reasoner chain-of-thought 需要大空间
+    cost_per_1m_input: 0.55
+    cost_per_1m_output: 2.19
+
+  gemini_3_pro:
+    name: "Gemini 3.1 Pro"
+    provider: openai
+    model_name: "gemini-3.1-pro-preview"
+    api_key_env: GEMINI_PRO_API_KEY
+    base_url_env: GEMINI_PRO_BASE_URL
+    supports_search: true
+    timeout_seconds: 120           # v2.8.8: standard model
+    max_tokens: 8192
+    cost_per_1m_input: 2.00       # 单价 (USD/1M tokens)
+    cost_per_1m_output: 12.00     # 单价 (USD/1M tokens)
+
+
+  gemini_31_pro_thinking:
+    name: "Gemini 3.1 Pro Thinking"
+    provider: openai
+    model_name: "gemini-3.1-pro-preview-thinking-high"  # v4.34: 升级到 3.1 thinking-high，保持 model_id/keys 不变
+    api_key_env_list:
+      - GEMINI_PRO_THINKING_API_KEY
+      - GEMINI_PRO_THINKING_API_KEY_2
+      - GEMINI_PRO_THINKING_API_KEY_3
+    base_url_env: GEMINI_PRO_THINKING_BASE_URL
+    supports_search: true
+    timeout_seconds: 120           # v2.8.8: standard model
+    max_tokens: 16384             # thinking 模型统一 16K+
+    cost_per_1m_input: 2.00       # 单价 (USD/1M tokens)
+    cost_per_1m_output: 12.00     # 单价 (USD/1M tokens)
+
+  gpt53_codex:
+    name: "GPT-5.4 High"
+    provider: openai
+    model_name: "gpt-5.4-2026-03-05"        # R1最小替换: contributor 槽位升级到 GPT-5.4（保持当前 OpenAI-compatible chat.completions 口径）
+    reasoning_effort: "high"                 # R1验证: GPT-5.4 默认 none 不推理，设 high 保证深度
+    api_key_env: OPENAI_GPT53_CODEX_API_KEY  # 独立 Key
+    base_url_env: OPENAI_BASE_URL
+    supports_search: true
+    timeout_seconds: 120           # v4.22d: 120s — 编程题认真答得上，非编程题快速敷衍被 n_of_m 自然淘汰
+    max_tokens: 16384
+    cost_per_1m_input: 5.00        # 单价 (USD/1M tokens)
+    cost_per_1m_output: 15.00      # 单价 (USD/1M tokens)
+
+  gemini_3_flash:
+    name: "Gemini 3.1 Flash Lite"
+    provider: openai
+    model_name: "gemini-3.1-flash-lite-preview"  # R1最小替换: Flash 线升级（light/extractor/preflight/socratic fast roles）
+    api_key_env_list:
+      - GEMINI_FLASH_API_KEY
+      - GEMINI_FLASH_API_KEY_2
+      - GEMINI_FLASH_API_KEY_3
+      - GEMINI_FLASH_API_KEY_4
+      - GEMINI_FLASH_API_KEY_5
+      - GEMINI_FLASH_API_KEY_6
+    base_url_env: GEMINI_FLASH_BASE_URL
+    supports_search: true
+    timeout_seconds: 30            # v2.8.8: fastest model, 1-5s typical
+    max_tokens: 4096
+    cost_per_1m_input: 0.10
+    cost_per_1m_output: 0.40
+
+  perplexity_sonar:
+    name: "Perplexity Sonar"
+    provider: openai                 # Perplexity API is OpenAI-compatible
+    model_name: "perplexity/sonar"   # OpenRouter model id format
+    api_key_env: OPENROUTER_API_KEY
+    base_url_env: OPENROUTER_BASE_URL  # https://openrouter.ai/api/v1
+    proxy_env: ""                    # optional: set to an env var name to route this model via HTTP/SOCKS proxy (leave empty for direct connection)
+    supports_search: true            # search is always-on (Perplexity IS a search engine)
+    timeout_seconds: 30            # v2.8.8: fastest model, search engine speed
+    max_tokens: 4096
+    cost_per_1m_input: 1.00
+    cost_per_1m_output: 1.00
+
+  perplexity_sonar_pro:
+    name: "Perplexity Sonar Pro"
+    provider: openai                 # Perplexity API is OpenAI-compatible
+    model_name: "perplexity/sonar-pro"  # OpenRouter model id format
+    api_key_env: OPENROUTER_API_KEY
+    base_url_env: OPENROUTER_BASE_URL  # https://openrouter.ai/api/v1
+    proxy_env: ""                    # optional: set to an env var name to route this model via HTTP/SOCKS proxy (leave empty for direct connection)
+    supports_search: true            # search is always-on
+    search_style: always_on          # v4.23: always-on search — suppress Tavily rag_section (redundant), model searches at API level regardless
+    timeout_seconds: 120             # Pro model needs more time for deeper search
+    max_tokens: 8192
+    cost_per_1m_input: 3.00
+    cost_per_1m_output: 15.00
+
+# ============================================================
+# Modes
+# ============================================================
+modes:
+  light:
+    # v2.8.6: Perplexity + Kimi 竞速 — 两个都有原生搜索，谁快用谁
+    # Perplexity: 搜索引擎级速度 (1-5s)，自带 citations，Perplexity 化体验
+    # Kimi: 中文搜索质量优秀，thinking 能力强，但较慢 (10-30s)
+    # n_of_m=1: 第一个返回的直接用，无需等待
+    contributors: [perplexity_sonar, gemini_3_flash, kimi]
+    judge: claude_sonnet              # only used if skip_judge=false
+    extractor: gemini_3_flash         # Extractor 仍用 Flash: 话题追踪+置信度评估
+    question_critic: ""
+    answer_critic: ""
+    n_of_m: 1                         # 竞速: 第一个返回的直接用
+    critique_always_on: false
+    default_output_depth: level_1
+    max_timeout_seconds: 30           # Perplexity 通常 1-5s, Kimi fallback 最多 30s
+    auto_escalate: false              # companion hint handles upsell
+    skip_judge: true                  # direct pass-through, no Judge synthesis
+
+  deep:
+    # v3.4: gpt52_pro(now gpt-5.2-thinking) 加入 — 替换不稳定的 gemini_31_pro_thinking
+    # v3.5: Extractor 升级 gemini_3_pro → claude_sonnet — 消除弱评强+同族偏好
+    # v4.2: perplexity_sonar_pro 加入 — 官方API就绪，Pro版深度搜索为聚合提供实时信息源
+    # v4.3: Kimi thinking-only — web_search禁用(API互斥), Perplexity接管搜索角色
+    # v4.3: gpt52_pro 移除 — 最贵($9/$36)最弱(344/500)从未best_single, 省~$5/25题
+    # v4.6: perplexity_sonar_pro 恢复
+    # v4.22d: 临时移除 kimi（内容审核拦截半导体话题）+ answer_critic 换 gemini_31_pro_thinking
+    # v4.27: 加入 gpt52_thinking — 用户指定，thinking模型推理更强，GPT视角补全
+    # v4.28: 移除 gpt52_thinking（幻觉题150/500严重偏低，历次表现不稳定）；恢复 kimi（n_of_m容忍拦截）；加入 gpt53_codex（technical全场最高414，GPT家族唯一贡献者）
+    # v4.38: 回退 Grok 试验，恢复 gpt53_codex（稳定性优先，运行版本无 Grok）
+    contributors: [deepseek_reasoner, kimi, gemini_31_pro_thinking, claude_opus_thinking, perplexity_sonar_pro, gpt53_codex]
+    judge: claude_opus_thinking
+    extractor: gemini_3_flash              # R2验证: Gemini FL 纯JSON直接可解析，快0.8s，成本降20倍（原 claude_sonnet）
+    question_critic: gemini_3_flash        # R2验证: 分类精度相当，纯JSON，成本降20倍（原 claude_sonnet）
+    answer_critic: claude_sonnet            # R2复核: Gemini FL 把关偏松(6分 vs Sonnet 4分)，critic 岗"严"比"快"重要，保留 Sonnet
+    n_of_m: 5                        # v4.28: 6取5（6个contributor，容忍1个失败；kimi内容拦截时自动跳过）
+    critique_always_on: true
+    default_output_depth: level_2    # v2.0: answer + divergence summary
+    max_timeout_seconds: 420         # G4: 与用户确认的7分钟一致；F4统一由config驱动pipeline deadline
+    refinement_timeout_seconds: 60   # 单次 refinement 硬超时（秒）
+    max_refinement_rounds: 2         # v2.3: Answer Critic → Judge Refine 最多 2 轮
+    smart_routing: true               # v2.4: 按题型调整管道 (factual/creative减量). 设 false 关闭
+    moa_layers: 2                    # v3.1: MoA两层聚合 — Layer2各模型看到其他模型回答后改进（同Research）
+    preflight_clarity_check: gemini_3_flash  # v2.7.5: vague question → clarification prompt
+
+  research:
+    # v3.4: gpt52_pro(now gpt-5.2-thinking) 加入 — 全明星阵容升级
+    # v3.5: Extractor 升级 gemini_3_pro → claude_sonnet — 消除弱评强+同族偏好
+    # v4.2: perplexity_sonar → perplexity_sonar_pro 升级 — Pro版深度搜索+2x结果，Research最高质量要求
+    # v4.3: Kimi thinking-only — web_search禁用(API互斥), Perplexity接管搜索角色
+    # v4.3: gpt52_pro 移除 — 最贵($9/$36)最弱(344/500)从未best_single, 省~$5/25题
+    # v4.22d: gpt52_pro + gpt53_codex 加入 — GPT视角补全，编程/推理强化
+    # v4.27: gpt52_pro → gpt52_thinking (用户指定，thinking模型推理更强)
+    # v4.28: research保留gpt52_thinking（deep移除，research样本不足，待下轮验证后决定）
+    # v4.29: 移除 gpt52_thinking — smoke验证meta_cognition_01中得283/500倒数第一，与deep对齐
+    # v4.22d: n_of_m 4→5（7取5，容忍2个失败）; 需追踪两个新模型在贡献者中的 best_single 得分
+    contributors: [deepseek_reasoner, kimi, gemini_31_pro_thinking, claude_opus_thinking, perplexity_sonar_pro, gpt53_codex]
+    judge: claude_opus_thinking
+    extractor: gemini_3_flash                # R2验证: 同Deep，Gemini FL 替代 Sonnet（原 claude_sonnet）
+    question_critic: gemini_3_flash            # R2验证: 同Deep（原 claude_sonnet）
+    answer_critic: claude_sonnet               # R2复核: 同Deep，保留 Sonnet 严格把关
+    n_of_m: 5                               # v4.22d: 7取5，容忍2个失败；新模型需benchmark追踪best_single率
+    critique_always_on: true                 # 始终质疑
+    default_output_depth: level_3
+    max_timeout_seconds: 900                 # 无时间限制，保证最高质量
+    refinement_timeout_seconds: 60           # 单次 refinement 硬超时（秒）
+    disable_best_single: true               # v2.2: 默认综合；v3.9: smart_routing=true 后 WRITING/MATH/CODING 题型通过 adaptive_aggregation 绕过此设置走 BEST_SINGLE
+    best_single_override_gap: 0.35          # v3.9: 从 0.5 降至 0.35（pairwise 空间下 0.5 几乎永不触发，5模型最大 gap=0.75，0.35 覆盖真正极端碾压场景）
+    max_refinement_rounds: 3                 # v2.3: Answer Critic → Judge Refine 最多 3 轮
+    smart_routing: true                        # v3.9: 开启路由 — WRITING/MATH/CODING 走 best_single 策略（合成稀释负优化），ANALYTICAL/REASONING 仍走完整管道
+    moa_layers: 2                              # v2.4.3: MoA两层聚合 — Layer2各模型看到其他模型回答后改进
+    preflight_clarity_check: gemini_3_flash  # v2.7.5: vague question → clarification prompt
+
+  # v2.5: Socratic mode — Phase 3 实现
+  # 两阶段: Phase1快速收集观点(fan-out~15-25s) → Phase2轻量对话(<5s/轮)
+  socratic:
+    # v4.18: 重新稳定化配置
+    # 移除 kimi/claude_opus_thinking: 实测 kimi(contributor) 卡 423s、kimi(guide) 46s
+    # claude_sonnet 批量返回 500，已从 divergence_analyzer/guide_generator 移除
+    # v4.31: deepseek_reasoner→gemini_3_pro — reasoner链式思考20-40s太慢，
+    # 反复卡在"召集第三个专家"。Socratic需要快速多样观点，不需要深度推理。
+    contributors: [gemini_3_flash, gemini_3_pro, gpt52]
+    judge: gemini_3_flash                      # v4.18: claude_sonnet 批量500，换flash；背景综合不阻塞用户
+    extractor: gemini_3_flash                  # Phase1 metadata (并行)
+    answer_critic: ""                          # 苏格拉底不需要answer_critic，省时间
+    divergence_analyzer: gemini_3_flash        # v4.18: claude_sonnet 500 → 换flash，分歧分析够用
+    guide_generator: gemini_3_flash            # v4.18: kimi 超时46s → 换flash；guide timeout=15s内完成
+    n_of_m: 2                                  # 3个contributor取前2即可启动分歧分析
+    max_guide_rounds: 5
+    reveal_on_demand: true
+    critique_always_on: false                  # 关闭critique加速
+    default_output_depth: level_3               # Socratic 始终全透明
+    max_timeout_seconds: 120                   # v4.18: 180→120，contributor 卡住时更快熔断
+    max_refinement_rounds: 0                   # 苏格拉底不需要精炼轮次
+
+# ============================================================
+# Judge
+# ============================================================
+judge:
+  light_model: claude_sonnet           # synced with modes.light.judge
+  deep_model: claude_opus_thinking     # v3.0: synced with modes.deep.judge (opus, Delta+2.8, 73%胜率)
+  extractor_model: gemini_3_flash      # synced with modes.light.extractor
+  quality_gate_enabled: true
+  # Fallback chains — config-driven, no hardcoded model IDs in orchestrator
+  judge_fallback_chain: [claude_sonnet_thinking, gemini_3_pro]  # tried in order, skip the primary that failed
+  refine_fallback: claude_sonnet_thinking                        # used when Judge refine times out
+  extractor_fallback_chain: [gemini_3_flash, gemini_31_pro_thinking]  # v4.15: fallback when primary extractor (claude_sonnet) fails
+  # Quality Gate thresholds (tunable; avoid "synthesis dilution")
+  quality_gate:
+    best_single_gap_threshold: 0.2     # was 0.3 → 降低门槛, benchmark显示聚合在factual/controversial输给最强单模型
+    best_single_min_score: 0.65       # was 0.7 → 略放宽, 让更多高质量单模型被采纳
+    low_confidence_avg_threshold: 0.4 # avg score below → low confidence
+    low_confidence_meta_threshold: 0.3 # metadata confidence below → low confidence
+    divergence_confidence_threshold: 0.5   # divergence + conf below → low confidence
+    answer_critic_confidence_threshold: 0.8 # below → trigger answer critic
+    moa_weak_exclude_margin: 0.25          # v4.0: 0.20→0.25（排除赢≤1/4对比的贡献者）；待Layer1≥50条moa_applied=True记录后数据驱动校准
+
+# ============================================================
+# Search (Phase 2: 统一搜索层)
+# ============================================================
+# 搜索一次，结果注入所有 contributor 的 {rag_section}
+# 优势：所有模型基于相同事实回答，消除信息不一致
+# Tavily 作为搜索 provider，计费以服务商当前定价为准
+search:
+  enabled: true                         # v4.12: Research 模式重新启用 Tavily — Planner 生成 search_queries，多词并发搜索
+  provider: tavily
+  api_key_env: TAVILY_API_KEY
+  max_results: 5
+  search_depth: advanced        # v4.12: Research 用 advanced 深度，精度优先
+  include_answer: true          # 包含 Tavily AI 摘要
+  timeout_seconds: 15
+  max_chars: 4000               # v4.12: 从 3000 增至 4000，Research 报告需要更多引用素材
+  modes: [deep, research]       # v4.27: Deep 重新启用 Tavily basic search — Kimi 已从 Deep 移除(v4.22d)，搜索冲突顾虑消除
+                                # Deep 使用 basic depth 控制成本(+~$0.002/query, +3-5s 被 fan-out 并行吸收)
+                                # 消除搜索单点依赖: Deep FactChecker/Judge 来源引用不再依赖 Perplexity 唯一可用性
+
+# ============================================================
+# Memory
+# ============================================================
+memory:
+  session_dir: data/sessions
+  knowledge_dir: data/chromadb
+  notes_dir: data/notes
+  logs_dir: data/logs
+  profile_path: data/profile.json
+  cognitive_profile_path: data/cognitive_profile.json  # v2.0: Growth Intent tracking
+  session_timeout_minutes: 30
+  max_session_turns: 50
+
+# ============================================================
+# Quota (v2.7.5: per-user daily limits)
+# ============================================================
+quota:
+  enabled: true
+  light: 100        # max Light queries per user per day
+  deep: 20          # max Deep queries per user per day
+  research: 5       # max Research queries per user per day
+  socratic: 10      # max Socratic sessions per user per day
+  roundtable: 5     # max Roundtable sessions per user per day
+
+# ============================================================
+# Feature Flags (Phase 4.5+, 独立开关，灰度发布)
+# 每个开关独立控制，便于定位收益来源。回滚时只关对应开关。
+# ============================================================
+features:
+  # Phase 4.5-A: Planner-lite
+  # gemini_flash 输出 sub_questions + search_queries，注入贡献者 prompt
+  # 仅 Research 模式 + ANALYTICAL/REASONING/CONTROVERSIAL 题型触发
+  # 回滚条件: route_regret 连续2次 benchmark 未下降，或成本增幅 >$0.02/次
+  planner_lite: true
+
+  # Phase 4.5-B: multi-query 并发搜索
+  # Planner 输出的 search_queries 并发 Tavily，合并注入 rag_section
+  # 独立开关：即使 planner_lite=false 也可单独测试（此时用原始 question 拆词）
+  # 回滚条件: 同上，另加 P95 延迟增加 >10s
+  # v4.12: 启用 — Planner-lite 已稳定运行，search_queries 可并发搜索，FactChecker 验证素材翻倍
+  multi_query_search: true
+
+  # Phase 4.1: 语义验证开关（A/B 实验用）
+  # true = v4.1 行为（gemini_flash pairwise 判断 synthesis vs best_single）
+  # false = v3.10 行为（长度启发式 < 70%）
+  # 默认 true；设为 false 可隔离 v4.1 影响，用于 benchmark A/B 对比
+  semantic_check: true
+
+  # Phase 5: 事实一致性检查（shadow mode，只打分不拦截）
+  # gemini_flash 检查最终答案结论 vs rag_section，记录 unsupported_claim_rate
+  # shadow mode 运行 1-2 周建立基线后，再决定是否接入主路径
+  # 回滚条件: P95 延迟增加 >15s 且 unsupported_claim_rate 降幅 <15%
+  fact_check_shadow: true            # v4.23: now wired in orchestrator — controls FactChecker execution; false = skip entirely
+
+  # Phase 5.1: 迭代搜索（Research 独有）
+  # fan-out 完成后，gemini_flash 分析贡献者回答，找出初始搜索未覆盖的子话题
+  # → 生成 2-3 个 gap_queries → Tavily 补搜 → 扩充 FactChecker 验证素材
+  # 理论依据: Self-RAG (Asai et al., 2023), STORM (Shao et al., 2024)
+  # 预期效果: 搜索覆盖率 +50-80%，FactChecker unverified 率下降
+  # 成本影响: +$0.005-0.01/次 (1次 flash + 2-3次 Tavily)
+  # 延迟影响: +5-10s (gap detection 3-5s + 补搜 3-5s)
+  # 回滚条件: P95 延迟增加 >15s 或 unverified_rate 无改善
+  iterative_search: true
+
+  # Phase 5.2: 综合后核查（Research 独有）
+  # Judge 输出后，gemini_flash 扫描最终报告中的新增具体声明（数字/统计/日期）
+  # 对比 Tavily 来源摘要，找出综合阶段引入的未验证声明
+  # 结果追加到 fact_warnings — 不修改 final_answer
+  # 触发条件: research + SYNTHESIZED 路径 + Tavily 有来源
+  # 成本影响: +$0.001/次 (1次 flash)  延迟影响: +3-8s
+  # 回滚条件: P95 延迟增加 >10s 或 false-positive 率 >30%
+  post_synthesis_verify: true
+
+  # Companion hints（认知教练提示）
+  # false = 关闭，不向用户发送任何 companion_hint 事件
+  # 恢复条件: 积累足够用户行为数据（建议 ≥500 次查询）后再开启，确保提示与上下文相关
+  companion_hints: true
+
+  # v5.0: Next-Step Guidance（统一下一步建议）
+  # true = 每次回答后生成建议; false = 完全关闭
+  # 回滚条件: 建议采纳率 <5% 连续3天，或用户 dismiss 率 >80%
+  nsg_enabled: true
+
+  # v5.2: Canonical guidance protocol (Phase 0)
+  # true = GuidanceOutput 为唯一真源，旧字段派生（唯一有效值，false 路径已在 v5.2 删除）
+  guidance_v1: true
+
+  # v5.2: Roundtable mode (Phase 2) — 多模型公开辩论
+  # v5.3: 正式启用 — WP10-B 安全接线 + SQLite 会话持久化 + 产品入口完成
+  roundtable_enabled: true
+
+  # v5.2: Roundtable moderator model (Phase 2)
+  # 主持人模型用于 S2 争议点映射 + S4 决策综合
+  # 空字符串 = 使用默认值 "claude_sonnet"
+  # 可选值: claude_sonnet, claude_opus_thinking, gemini_31_pro_thinking
+  roundtable_moderator_model: "claude_sonnet"
+
+  # v5.2: Wait-period preference injection (Phase 3)
+  # >30s 推送偏好收集，注入 Judge prompt
+  preference_injection: false
+
+  # v5.2: Mid-pipeline supplement restart (Phase 3)
+  # 用户中途补充信息 → 等管道完成后发 supplement_accepted SSE → 前端自动重起查询
+  supplement_restart: false
+
+# ============================================================
+# Server
+# ============================================================
+server:
+  host: "127.0.0.1"
+  port: 8000

@@ -1,0 +1,4871 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Synthora API",
+    "description": "Multi-model AI orchestration — answers that surpass any single model",
+    "version": "2.8.8"
+  },
+  "paths": {
+    "/api/auth/send-code": {
+      "post": {
+        "summary": "Send Code",
+        "description": "Send SMS verification code. Rate-limited per phone and per IP.",
+        "operationId": "send_code_api_auth_send_code_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendCodeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SendCodeResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/register-phone": {
+      "post": {
+        "summary": "Register Phone",
+        "description": "Register a new account using phone number + SMS code verification.",
+        "operationId": "register_phone_api_auth_register_phone_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PhoneRegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "summary": "Register",
+        "operationId": "register_api_auth_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "summary": "Login",
+        "operationId": "login_api_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "summary": "Logout",
+        "description": "Revoke session server-side and clear cookie (SEC-003).",
+        "operationId": "logout_api_auth_logout_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LogoutResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/me": {
+      "get": {
+        "summary": "Me",
+        "operationId": "me_api_auth_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthMeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/api-key": {
+      "get": {
+        "summary": "Api Key Status",
+        "operationId": "api_key_status_api_auth_api_key_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiKeyStatusResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/api-key/rotate": {
+      "post": {
+        "summary": "Rotate Api Key",
+        "operationId": "rotate_api_key_api_auth_api_key_rotate_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiKeyRotateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/change-password": {
+      "post": {
+        "summary": "Change Password",
+        "description": "Change the current user's password (step-up auth: requires old password).",
+        "operationId": "change_password_api_auth_change_password_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePasswordBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChangePasswordResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/account": {
+      "delete": {
+        "summary": "Delete Account",
+        "description": "Permanently delete the current user's account and all associated data.\n\nRequires ?confirm=DELETE + request body {\"password\": \"...\"} (step-up auth, RC-10).\nDeletes: user record, profile JSON, query history, sessions, usage data, uploads.",
+        "operationId": "delete_account_api_auth_account_delete",
+        "parameters": [
+          {
+            "name": "confirm",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "default": "",
+              "title": "Confirm"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteAccountBody"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteAccountResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/usage": {
+      "get": {
+        "summary": "Admin Usage",
+        "description": "Get usage stats for all users. Admin only.",
+        "operationId": "admin_usage_api_admin_usage_get",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminUsageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/usage/{user_id}": {
+      "get": {
+        "summary": "Admin User Usage",
+        "description": "Get usage history for a specific user. Admin only.",
+        "operationId": "admin_user_usage_api_admin_usage__user_id__get",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "days",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 7,
+              "title": "Days"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminUserUsageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/cost-report": {
+      "get": {
+        "summary": "Admin Cost Report",
+        "description": "Actual API cost report for today (or given date). Admin only.\n\nv4.30: Cost figures are now read from per-query estimated_cost_usd stored in\nquery_history (actual tracked cost, not P50 estimates). P50 fallback is used\nonly when no history records exist for the date (e.g. new deployment).\n\nReturns per-mode call counts, actual API cost, and top users by consumption.",
+        "operationId": "admin_cost_report_api_admin_cost_report_get",
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminCostReportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/history": {
+      "get": {
+        "summary": "History",
+        "description": "Return paginated query history for the current user.",
+        "operationId": "history_api_history_get",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 20,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 0,
+              "title": "Offset"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HistoryResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/profile/cognitive-consent": {
+      "post": {
+        "summary": "Toggle Cognitive Consent",
+        "description": "Toggle cognitive tracking consent (opt-in/opt-out).",
+        "operationId": "toggle_cognitive_consent_api_profile_cognitive_consent_post",
+        "parameters": [
+          {
+            "name": "consent",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Consent"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CognitiveConsentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/profile/cognitive-summary": {
+      "get": {
+        "summary": "Get Cognitive Summary",
+        "description": "Get a summary of the user's cognitive profile with structured data for visualization.",
+        "operationId": "get_cognitive_summary_api_profile_cognitive_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CognitiveSummaryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/profile/behavior-summary": {
+      "get": {
+        "summary": "Get Behavior Summary",
+        "description": "Get CBA narrative behavioral summary (ADR-014).\n\nReturns narrative-style insights about the user's cognitive\nbehavioral patterns: divergent-convergent dynamics, engagement\npatterns, and topic exploration. No labels, only observable patterns.",
+        "operationId": "get_behavior_summary_api_profile_behavior_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BehaviorSummaryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/profile/language": {
+      "get": {
+        "summary": "Get Language",
+        "description": "Return current user's preferred language.",
+        "operationId": "get_language_api_profile_language_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Set Language",
+        "description": "Persist current user's preferred language.",
+        "operationId": "set_language_api_profile_language_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SetLanguageRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/profile/delete-cognitive": {
+      "post": {
+        "summary": "Delete Cognitive Data",
+        "description": "Delete all cognitive tracking data for the current user (原则#22 用户主权).\n\nPreserves non-cognitive fields (preferences, mode history).\nRequires explicit confirmation via query param ?confirm=true.",
+        "operationId": "delete_cognitive_data_api_profile_delete_cognitive_post",
+        "parameters": [
+          {
+            "name": "confirm",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Confirm"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeleteCognitiveResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/profile/export": {
+      "get": {
+        "summary": "Export Profile",
+        "description": "Export all user data as JSON (原则#22 用户主权 — 数据控制权).\n\nReturns complete profile, cognitive data, behavior analytics,\nand query history in a single downloadable JSON.",
+        "operationId": "export_profile_api_profile_export_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileExportResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/profile/recent-turns": {
+      "get": {
+        "summary": "Get Recent Turns",
+        "description": "Return Memory-lite recent_turns for cross-session continuity card (ML-04).",
+        "operationId": "get_recent_turns_api_profile_recent_turns_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecentTurnsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/profile/growth": {
+      "get": {
+        "summary": "Get Growth Dashboard",
+        "description": "Growth visualization data (原则#19: 成长可视化).\n\nReturns topic depth progression, expertise scores, and exploration\npatterns so the user can see \"我不知不觉就变强了\".",
+        "operationId": "get_growth_dashboard_api_profile_growth_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GrowthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/profile/usage": {
+      "get": {
+        "summary": "My Usage",
+        "description": "Get current user's daily usage and remaining quota.",
+        "operationId": "my_usage_api_profile_usage_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsageResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/capability-map": {
+      "get": {
+        "summary": "Get Capability Map",
+        "description": "Get user's capability map for frontend visualization.\n\nReturns topic depth radar data, active improvement plans,\ncognitive quadrant summary, and growth trend.",
+        "operationId": "get_capability_map_api_capability_map_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CapabilityMapResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/improvement-plans": {
+      "get": {
+        "summary": "Get Improvement Plans",
+        "description": "List all improvement plans for the current user.",
+        "operationId": "get_improvement_plans_api_improvement_plans_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImprovementPlansListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/improvement-plans/{plan_id}/activate": {
+      "post": {
+        "summary": "Activate Plan",
+        "description": "Accept and activate a proposed improvement plan.",
+        "operationId": "activate_plan_api_improvement_plans__plan_id__activate_post",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImprovementPlanActionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/improvement-plans/{plan_id}/abandon": {
+      "post": {
+        "summary": "Abandon Plan",
+        "description": "Abandon an improvement plan.",
+        "operationId": "abandon_plan_api_improvement_plans__plan_id__abandon_post",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImprovementPlanActionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/improvement-plans/{plan_id}/engaged": {
+      "post": {
+        "summary": "Record Challenge Engagement",
+        "description": "Record that user engaged with a micro-challenge (responded to it).",
+        "operationId": "record_challenge_engagement_api_improvement_plans__plan_id__engaged_post",
+        "parameters": [
+          {
+            "name": "plan_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Plan Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImprovementPlanActionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "summary": "Health",
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ask": {
+      "post": {
+        "summary": "Ask",
+        "operationId": "ask_api_ask_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AskRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AskResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ask/stream": {
+      "post": {
+        "summary": "Ask Stream",
+        "operationId": "ask_stream_api_ask_stream_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AskRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/socratic/start": {
+      "post": {
+        "summary": "Socratic Start",
+        "description": "Legacy blocking endpoint — kept for backward compatibility.",
+        "operationId": "socratic_start_api_socratic_start_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SocraticStartRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SocraticStartResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/socratic/start/stream": {
+      "post": {
+        "summary": "Socratic Start Stream",
+        "description": "方案C: SSE streaming Socratic start — user sees progress in ~10s.\n\nEvents:\n  socratic_stage     — pipeline stage update (recruiting/searching/thinking/analyzing/guiding)\n  socratic_contributor — one expert responded\n  socratic_divergence — divergence analysis ready\n  socratic_ready     — session ready, guide question generated (terminal event)\n  socratic_error     — pipeline error (terminal event)",
+        "operationId": "socratic_start_stream_api_socratic_start_stream_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SocraticStartRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/socratic/respond": {
+      "post": {
+        "summary": "Socratic Respond",
+        "operationId": "socratic_respond_api_socratic_respond_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SocraticRespondRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SocraticRespondResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/socratic/reveal": {
+      "post": {
+        "summary": "Socratic Reveal",
+        "operationId": "socratic_reveal_api_socratic_reveal_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SocraticRevealRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SocraticRevealResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/upload": {
+      "post": {
+        "summary": "Upload File",
+        "operationId": "upload_file_api_upload_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_upload_file_api_upload_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UploadResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/models": {
+      "get": {
+        "summary": "List Models",
+        "operationId": "list_models_api_models_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvailableModelsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/modes": {
+      "get": {
+        "summary": "List Modes",
+        "operationId": "list_modes_api_modes_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/pricing": {
+      "get": {
+        "summary": "Pricing",
+        "description": "Per-model pricing information (USD per 1M tokens).",
+        "operationId": "pricing_api_pricing_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PricingResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/quota": {
+      "get": {
+        "summary": "Get Quota",
+        "description": "Return today's usage, limits, and remaining credits for the current user.",
+        "operationId": "get_quota_api_quota_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuotaResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/feedback": {
+      "post": {
+        "summary": "Record Feedback",
+        "operationId": "record_feedback_api_feedback_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/roundtable/check": {
+      "post": {
+        "summary": "Roundtable Check",
+        "description": "Route guard: check if question is suitable for roundtable.",
+        "operationId": "roundtable_check_api_roundtable_check_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoundtableStartRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoundtableCheckResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/roundtable/start": {
+      "post": {
+        "summary": "Roundtable Start",
+        "description": "Start a roundtable debate session (SSE streaming).",
+        "operationId": "roundtable_start_api_roundtable_start_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoundtableStartRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "SSE stream",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/roundtable/{session_id}/choice": {
+      "post": {
+        "summary": "Roundtable Choice",
+        "description": "User decision point (A or B). Owner check + state isolation + idempotency.",
+        "operationId": "roundtable_choice_api_roundtable__session_id__choice_post",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RoundtableChoiceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoundtableChoiceResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/roundtable/{session_id}/resume": {
+      "get": {
+        "summary": "Roundtable Resume",
+        "description": "Resume a session after auto_draft or SSE disconnect.",
+        "operationId": "roundtable_resume_api_roundtable__session_id__resume_get",
+        "parameters": [
+          {
+            "name": "session_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Session Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RoundtableResumeResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/": {
+      "get": {
+        "summary": "Redirect To Frontend",
+        "operationId": "redirect_to_frontend__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      },
+      "head": {
+        "summary": "Redirect To Frontend Head",
+        "operationId": "redirect_to_frontend_head__head",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AdminCostReportResponse": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "title": "Date"
+          },
+          "mode_call_counts": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Mode Call Counts"
+          },
+          "mode_costs_usd": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "type": "object",
+            "title": "Mode Costs Usd"
+          },
+          "total_cost_usd": {
+            "type": "number",
+            "title": "Total Cost Usd"
+          },
+          "top_users_by_queries": {
+            "items": {
+              "$ref": "#/components/schemas/AdminTopUserQueriesItem"
+            },
+            "type": "array",
+            "title": "Top Users By Queries"
+          },
+          "top_users_by_cost": {
+            "items": {
+              "$ref": "#/components/schemas/AdminTopUserCostItem"
+            },
+            "type": "array",
+            "title": "Top Users By Cost"
+          },
+          "cost_basis": {
+            "type": "string",
+            "title": "Cost Basis"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "mode_call_counts",
+          "mode_costs_usd",
+          "total_cost_usd",
+          "top_users_by_queries",
+          "top_users_by_cost",
+          "cost_basis"
+        ],
+        "title": "AdminCostReportResponse"
+      },
+      "AdminTopUserCostItem": {
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "query_count": {
+            "type": "integer",
+            "title": "Query Count"
+          },
+          "total_cost_usd": {
+            "type": "number",
+            "title": "Total Cost Usd"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "query_count",
+          "total_cost_usd"
+        ],
+        "title": "AdminTopUserCostItem"
+      },
+      "AdminTopUserQueriesItem": {
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "total_queries": {
+            "type": "integer",
+            "title": "Total Queries"
+          },
+          "light": {
+            "type": "integer",
+            "title": "Light",
+            "default": 0
+          },
+          "socratic": {
+            "type": "integer",
+            "title": "Socratic",
+            "default": 0
+          },
+          "deep": {
+            "type": "integer",
+            "title": "Deep",
+            "default": 0
+          },
+          "research": {
+            "type": "integer",
+            "title": "Research",
+            "default": 0
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "total_queries"
+        ],
+        "title": "AdminTopUserQueriesItem"
+      },
+      "AdminUsageResponse": {
+        "properties": {
+          "date": {
+            "type": "string",
+            "title": "Date"
+          },
+          "limits": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Limits"
+          },
+          "users": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "type": "integer"
+              },
+              "type": "object"
+            },
+            "type": "object",
+            "title": "Users"
+          }
+        },
+        "type": "object",
+        "required": [
+          "date",
+          "limits",
+          "users"
+        ],
+        "title": "AdminUsageResponse"
+      },
+      "AdminUserUsageResponse": {
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "today": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Today"
+          },
+          "limits": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Limits"
+          },
+          "history": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "type": "integer"
+              },
+              "type": "object"
+            },
+            "type": "object",
+            "title": "History"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "today",
+          "limits",
+          "history"
+        ],
+        "title": "AdminUserUsageResponse"
+      },
+      "ApiKeyRotateResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "ok"
+          },
+          "api_key": {
+            "type": "string",
+            "title": "Api Key"
+          },
+          "auth_scheme": {
+            "type": "string",
+            "title": "Auth Scheme",
+            "default": "Bearer"
+          },
+          "session_coupled": {
+            "type": "boolean",
+            "title": "Session Coupled",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "api_key"
+        ],
+        "title": "ApiKeyRotateResponse"
+      },
+      "ApiKeyStatusResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status",
+            "default": "ok"
+          },
+          "has_api_key": {
+            "type": "boolean",
+            "title": "Has Api Key"
+          },
+          "auth_scheme": {
+            "type": "string",
+            "title": "Auth Scheme",
+            "default": "Bearer"
+          },
+          "session_coupled": {
+            "type": "boolean",
+            "title": "Session Coupled",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "has_api_key"
+        ],
+        "title": "ApiKeyStatusResponse"
+      },
+      "AskRequest": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "maxLength": 10000,
+            "title": "Question"
+          },
+          "mode": {
+            "type": "string",
+            "title": "Mode",
+            "default": "auto"
+          },
+          "web_search": {
+            "type": "boolean",
+            "title": "Web Search",
+            "default": true
+          },
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Locale"
+          },
+          "depth": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 3.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Depth"
+          },
+          "skip_preflight": {
+            "type": "boolean",
+            "title": "Skip Preflight",
+            "default": false
+          },
+          "session_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 50
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Id"
+          },
+          "file_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "File Ids"
+          },
+          "single_model_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 100
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Single Model Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "title": "AskRequest"
+      },
+      "AskResponse": {
+        "properties": {
+          "query_id": {
+            "type": "string",
+            "title": "Query Id",
+            "default": ""
+          },
+          "question": {
+            "type": "string",
+            "title": "Question",
+            "default": ""
+          },
+          "mode": {
+            "type": "string",
+            "title": "Mode",
+            "default": ""
+          },
+          "final_answer": {
+            "type": "string",
+            "title": "Final Answer",
+            "default": ""
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence",
+            "default": 0.0
+          },
+          "quality_gate": {
+            "type": "string",
+            "title": "Quality Gate",
+            "default": ""
+          },
+          "has_divergence": {
+            "type": "boolean",
+            "title": "Has Divergence",
+            "default": false
+          },
+          "divergence_summary": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Divergence Summary"
+          },
+          "key_insights": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Key Insights",
+            "default": []
+          },
+          "latency_ms": {
+            "type": "integer",
+            "title": "Latency Ms",
+            "default": 0
+          },
+          "estimated_cost_usd": {
+            "type": "number",
+            "title": "Estimated Cost Usd",
+            "default": 0.0
+          },
+          "contributor_count": {
+            "type": "integer",
+            "title": "Contributor Count",
+            "default": 0
+          },
+          "individual_responses": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ModelResponseItem"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Individual Responses"
+          },
+          "companion_hint": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CompanionHintModel"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "preflight": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ClarificationNeededModel"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "pipeline_started": {
+            "type": "boolean",
+            "title": "Pipeline Started",
+            "default": true
+          },
+          "fast_path": {
+            "type": "boolean",
+            "title": "Fast Path",
+            "default": false
+          },
+          "low_confidence_actions": {
+            "items": {
+              "$ref": "#/components/schemas/LowConfidenceActionModel"
+            },
+            "type": "array",
+            "title": "Low Confidence Actions",
+            "default": []
+          },
+          "session_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Id"
+          },
+          "context_compressed": {
+            "type": "boolean",
+            "title": "Context Compressed",
+            "default": false
+          },
+          "search_citations": {
+            "items": {
+              "$ref": "#/components/schemas/SearchCitationModel"
+            },
+            "type": "array",
+            "title": "Search Citations",
+            "default": []
+          },
+          "draft_answers": {
+            "items": {
+              "$ref": "#/components/schemas/DraftAnswerModel"
+            },
+            "type": "array",
+            "title": "Draft Answers",
+            "default": []
+          },
+          "divergence_points": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Divergence Points",
+            "default": []
+          },
+          "consensus_points": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Consensus Points",
+            "default": []
+          },
+          "fact_warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Fact Warnings",
+            "default": []
+          },
+          "next_steps": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NextStepGuidanceModel"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "companion_guide": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/CompanionGuideModel"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "consensus_type": {
+            "type": "string",
+            "title": "Consensus Type",
+            "default": "unknown"
+          },
+          "guidance": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/GuidanceModel"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reason_code": {
+            "type": "string",
+            "title": "Reason Code",
+            "default": "standard"
+          },
+          "ai_disclosure": {
+            "type": "string",
+            "title": "Ai Disclosure",
+            "default": "本回答由 AI 生成，仅供参考，请自行核实重要信息。"
+          }
+        },
+        "type": "object",
+        "title": "AskResponse"
+      },
+      "AuthMeResponse": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "is_admin": {
+            "type": "boolean",
+            "title": "Is Admin"
+          },
+          "query_count": {
+            "type": "integer",
+            "title": "Query Count"
+          },
+          "preferred_language": {
+            "type": "string",
+            "title": "Preferred Language"
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "display_name",
+          "is_admin",
+          "query_count",
+          "preferred_language"
+        ],
+        "title": "AuthMeResponse"
+      },
+      "AuthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "username": {
+            "type": "string",
+            "title": "Username"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "is_admin": {
+            "type": "boolean",
+            "title": "Is Admin"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "username",
+          "display_name",
+          "is_admin"
+        ],
+        "title": "AuthResponse"
+      },
+      "AvailableModelInfo": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "available": {
+            "type": "boolean",
+            "title": "Available"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "available"
+        ],
+        "title": "AvailableModelInfo"
+      },
+      "AvailableModelsResponse": {
+        "properties": {
+          "models": {
+            "items": {
+              "$ref": "#/components/schemas/AvailableModelInfo"
+            },
+            "type": "array",
+            "title": "Models"
+          }
+        },
+        "type": "object",
+        "required": [
+          "models"
+        ],
+        "title": "AvailableModelsResponse"
+      },
+      "BehaviorMetricsResponse": {
+        "properties": {
+          "divergent_convergent": {
+            "$ref": "#/components/schemas/DivergentConvergentMetricsResponse"
+          },
+          "engagement": {
+            "$ref": "#/components/schemas/EngagementMetricsResponse"
+          },
+          "topic_depth_map": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Topic Depth Map"
+          }
+        },
+        "type": "object",
+        "required": [
+          "divergent_convergent",
+          "engagement",
+          "topic_depth_map"
+        ],
+        "title": "BehaviorMetricsResponse"
+      },
+      "BehaviorSummaryResponse": {
+        "properties": {
+          "has_data": {
+            "type": "boolean",
+            "title": "Has Data"
+          },
+          "narrative": {
+            "type": "string",
+            "title": "Narrative"
+          },
+          "metrics": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BehaviorMetricsResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "total_queries": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total Queries"
+          }
+        },
+        "type": "object",
+        "required": [
+          "has_data",
+          "narrative"
+        ],
+        "title": "BehaviorSummaryResponse"
+      },
+      "Body_upload_file_api_upload_post": {
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentMediaType": "application/octet-stream",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "title": "Body_upload_file_api_upload_post"
+      },
+      "CapabilityMapResponse": {
+        "properties": {
+          "has_data": {
+            "type": "boolean",
+            "title": "Has Data"
+          },
+          "topics": {
+            "items": {
+              "$ref": "#/components/schemas/CapabilityTopicItem"
+            },
+            "type": "array",
+            "title": "Topics"
+          },
+          "active_plans": {
+            "items": {
+              "$ref": "#/components/schemas/ImprovementPlanSummary"
+            },
+            "type": "array",
+            "title": "Active Plans"
+          },
+          "completed_plans_count": {
+            "type": "integer",
+            "title": "Completed Plans Count"
+          },
+          "cognitive_quadrant": {
+            "additionalProperties": {
+              "$ref": "#/components/schemas/CognitiveQuadrantBucket"
+            },
+            "type": "object",
+            "title": "Cognitive Quadrant"
+          },
+          "reasoning_trend": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Reasoning Trend"
+          },
+          "total_topics_explored": {
+            "type": "integer",
+            "title": "Total Topics Explored"
+          },
+          "topics_at_l3_plus": {
+            "type": "integer",
+            "title": "Topics At L3 Plus"
+          },
+          "average_reasoning_quality": {
+            "type": "number",
+            "title": "Average Reasoning Quality"
+          }
+        },
+        "type": "object",
+        "required": [
+          "has_data",
+          "topics",
+          "active_plans",
+          "completed_plans_count",
+          "cognitive_quadrant",
+          "reasoning_trend",
+          "total_topics_explored",
+          "topics_at_l3_plus",
+          "average_reasoning_quality"
+        ],
+        "title": "CapabilityMapResponse"
+      },
+      "CapabilityTopicItem": {
+        "properties": {
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "level": {
+            "type": "integer",
+            "title": "Level"
+          },
+          "level_label": {
+            "type": "string",
+            "title": "Level Label"
+          },
+          "frequency": {
+            "type": "integer",
+            "title": "Frequency"
+          },
+          "has_active_plan": {
+            "type": "boolean",
+            "title": "Has Active Plan"
+          },
+          "plan_progress": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plan Progress"
+          }
+        },
+        "type": "object",
+        "required": [
+          "topic",
+          "level",
+          "level_label",
+          "frequency",
+          "has_active_plan",
+          "plan_progress"
+        ],
+        "title": "CapabilityTopicItem"
+      },
+      "ChangePasswordBody": {
+        "properties": {
+          "old_password": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Old Password"
+          },
+          "new_password": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 8,
+            "title": "New Password"
+          }
+        },
+        "type": "object",
+        "required": [
+          "old_password",
+          "new_password"
+        ],
+        "title": "ChangePasswordBody"
+      },
+      "ChangePasswordResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "message"
+        ],
+        "title": "ChangePasswordResponse"
+      },
+      "ClarificationNeededModel": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "default": "clarification_needed"
+          },
+          "clarity": {
+            "type": "string",
+            "title": "Clarity",
+            "default": "low"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason",
+            "default": ""
+          },
+          "suggested_questions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Suggested Questions",
+            "default": []
+          },
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "title": "ClarificationNeededModel"
+      },
+      "CognitiveConsentResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "cognitive_tracking_consent": {
+            "type": "boolean",
+            "title": "Cognitive Tracking Consent"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "cognitive_tracking_consent"
+        ],
+        "title": "CognitiveConsentResponse"
+      },
+      "CognitiveQuadrantBucket": {
+        "properties": {
+          "count": {
+            "type": "integer",
+            "title": "Count"
+          },
+          "percentage": {
+            "type": "number",
+            "title": "Percentage"
+          }
+        },
+        "type": "object",
+        "required": [
+          "count",
+          "percentage"
+        ],
+        "title": "CognitiveQuadrantBucket"
+      },
+      "CognitiveSnapshot": {
+        "properties": {
+          "reasoning_depth": {
+            "type": "integer",
+            "title": "Reasoning Depth"
+          },
+          "nuance_recognition": {
+            "type": "integer",
+            "title": "Nuance Recognition"
+          },
+          "anchoring_detected": {
+            "type": "boolean",
+            "title": "Anchoring Detected"
+          },
+          "confirmation_bias": {
+            "type": "boolean",
+            "title": "Confirmation Bias"
+          },
+          "blind_spots": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Blind Spots"
+          }
+        },
+        "type": "object",
+        "required": [
+          "reasoning_depth",
+          "nuance_recognition",
+          "anchoring_detected",
+          "confirmation_bias",
+          "blind_spots"
+        ],
+        "title": "CognitiveSnapshot"
+      },
+      "CognitiveSummaryData": {
+        "properties": {
+          "quadrant_dist": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Quadrant Dist"
+          },
+          "comfort_zone_topics": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Comfort Zone Topics"
+          },
+          "growth_zone_topics": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Growth Zone Topics"
+          },
+          "mode_usage": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Mode Usage"
+          },
+          "socratic_sessions": {
+            "type": "integer",
+            "title": "Socratic Sessions"
+          },
+          "completion_rate": {
+            "type": "number",
+            "title": "Completion Rate"
+          },
+          "avg_reasoning_quality": {
+            "type": "number",
+            "title": "Avg Reasoning Quality"
+          },
+          "reasoning_trend": {
+            "items": {
+              "type": "number"
+            },
+            "type": "array",
+            "title": "Reasoning Trend"
+          },
+          "last_challenge_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Challenge Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "quadrant_dist",
+          "comfort_zone_topics",
+          "growth_zone_topics",
+          "mode_usage",
+          "socratic_sessions",
+          "completion_rate",
+          "avg_reasoning_quality",
+          "reasoning_trend"
+        ],
+        "title": "CognitiveSummaryData"
+      },
+      "CognitiveSummaryResponse": {
+        "properties": {
+          "summary": {
+            "type": "string",
+            "title": "Summary"
+          },
+          "cognitive_tracking_consent": {
+            "type": "boolean",
+            "title": "Cognitive Tracking Consent"
+          },
+          "data": {
+            "$ref": "#/components/schemas/CognitiveSummaryData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "summary",
+          "cognitive_tracking_consent",
+          "data"
+        ],
+        "title": "CognitiveSummaryResponse"
+      },
+      "CompanionGuideActionModel": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "default": ""
+          },
+          "label": {
+            "type": "string",
+            "title": "Label",
+            "default": ""
+          },
+          "action_type": {
+            "type": "string",
+            "title": "Action Type",
+            "default": ""
+          },
+          "action_payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Action Payload",
+            "default": {}
+          },
+          "rationale": {
+            "type": "string",
+            "title": "Rationale",
+            "default": ""
+          },
+          "estimated_seconds": {
+            "type": "integer",
+            "title": "Estimated Seconds",
+            "default": 0
+          },
+          "estimated_cost_usd": {
+            "type": "number",
+            "title": "Estimated Cost Usd",
+            "default": 0.0
+          },
+          "requires_confirm": {
+            "type": "boolean",
+            "title": "Requires Confirm",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "CompanionGuideActionModel"
+      },
+      "CompanionGuideModel": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "default": ""
+          },
+          "actions": {
+            "items": {
+              "$ref": "#/components/schemas/CompanionGuideActionModel"
+            },
+            "type": "array",
+            "title": "Actions",
+            "default": []
+          },
+          "trigger": {
+            "type": "string",
+            "title": "Trigger",
+            "default": "fold"
+          },
+          "is_silent": {
+            "type": "boolean",
+            "title": "Is Silent",
+            "default": false
+          },
+          "route_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Route Reason"
+          }
+        },
+        "type": "object",
+        "title": "CompanionGuideModel"
+      },
+      "CompanionHintModel": {
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic",
+            "default": ""
+          },
+          "times_asked": {
+            "type": "integer",
+            "title": "Times Asked",
+            "default": 0
+          },
+          "current_depth": {
+            "type": "integer",
+            "title": "Current Depth",
+            "default": 0
+          },
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "default": ""
+          },
+          "suggestions": {
+            "items": {
+              "$ref": "#/components/schemas/CompanionHintSuggestion"
+            },
+            "type": "array",
+            "title": "Suggestions",
+            "default": []
+          },
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "title": "CompanionHintModel"
+      },
+      "CompanionHintSuggestion": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "title": "Mode"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode",
+          "label"
+        ],
+        "title": "CompanionHintSuggestion"
+      },
+      "DecisionOption": {
+        "properties": {
+          "choice": {
+            "type": "string",
+            "title": "Choice"
+          },
+          "pros": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Pros"
+          },
+          "cons": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Cons"
+          },
+          "best_when": {
+            "type": "string",
+            "title": "Best When",
+            "default": ""
+          },
+          "risk": {
+            "type": "string",
+            "title": "Risk",
+            "default": ""
+          },
+          "mitigation": {
+            "type": "string",
+            "title": "Mitigation",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "choice",
+          "pros",
+          "cons"
+        ],
+        "title": "DecisionOption"
+      },
+      "DecisionPacket": {
+        "properties": {
+          "final_summary": {
+            "type": "string",
+            "title": "Final Summary"
+          },
+          "conclusion_type": {
+            "type": "string",
+            "title": "Conclusion Type",
+            "default": "draft"
+          },
+          "confidence_basis": {
+            "type": "string",
+            "title": "Confidence Basis",
+            "default": ""
+          },
+          "stance_evolution": {
+            "items": {
+              "$ref": "#/components/schemas/StanceEvolution"
+            },
+            "type": "array",
+            "title": "Stance Evolution"
+          },
+          "options": {
+            "items": {
+              "$ref": "#/components/schemas/DecisionOption"
+            },
+            "type": "array",
+            "title": "Options"
+          },
+          "unresolved": {
+            "items": {
+              "$ref": "#/components/schemas/UnresolvedItem"
+            },
+            "type": "array",
+            "title": "Unresolved"
+          },
+          "what_changes_my_mind": {
+            "type": "string",
+            "title": "What Changes My Mind",
+            "default": ""
+          },
+          "recommended_action": {
+            "type": "string",
+            "title": "Recommended Action",
+            "default": ""
+          },
+          "value_disputes_to_user": {
+            "items": {
+              "$ref": "#/components/schemas/ValueDisputeForUser"
+            },
+            "type": "array",
+            "title": "Value Disputes To User"
+          },
+          "echo_chamber_flag": {
+            "type": "boolean",
+            "title": "Echo Chamber Flag",
+            "default": false
+          },
+          "degraded": {
+            "type": "boolean",
+            "title": "Degraded",
+            "default": false
+          },
+          "degradation_reason": {
+            "type": "string",
+            "title": "Degradation Reason",
+            "default": ""
+          },
+          "total_latency_ms": {
+            "type": "integer",
+            "title": "Total Latency Ms",
+            "default": 0
+          },
+          "estimated_cost_usd": {
+            "type": "number",
+            "title": "Estimated Cost Usd",
+            "default": 0.0
+          }
+        },
+        "type": "object",
+        "required": [
+          "final_summary",
+          "stance_evolution",
+          "options",
+          "unresolved",
+          "value_disputes_to_user"
+        ],
+        "title": "DecisionPacket"
+      },
+      "DeleteAccountBody": {
+        "properties": {
+          "password": {
+            "type": "string",
+            "title": "Password"
+          }
+        },
+        "type": "object",
+        "required": [
+          "password"
+        ],
+        "title": "DeleteAccountBody"
+      },
+      "DeleteAccountResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "message"
+        ],
+        "title": "DeleteAccountResponse"
+      },
+      "DeleteCognitiveResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "remaining_fields": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Remaining Fields"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "message",
+          "remaining_fields"
+        ],
+        "title": "DeleteCognitiveResponse"
+      },
+      "DivergencePosition": {
+        "properties": {
+          "stance": {
+            "type": "string",
+            "title": "Stance"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary"
+          },
+          "models": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Models"
+          }
+        },
+        "type": "object",
+        "required": [
+          "stance",
+          "summary",
+          "models"
+        ],
+        "title": "DivergencePosition"
+      },
+      "DivergentConvergentMetricsResponse": {
+        "properties": {
+          "new_topics": {
+            "type": "integer",
+            "title": "New Topics"
+          },
+          "deepened_topics": {
+            "type": "integer",
+            "title": "Deepened Topics"
+          },
+          "switch_rate": {
+            "type": "number",
+            "title": "Switch Rate"
+          },
+          "top_recurring": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Top Recurring"
+          },
+          "total_in_window": {
+            "type": "integer",
+            "title": "Total In Window"
+          }
+        },
+        "type": "object",
+        "required": [
+          "new_topics",
+          "deepened_topics",
+          "switch_rate",
+          "top_recurring",
+          "total_in_window"
+        ],
+        "title": "DivergentConvergentMetricsResponse"
+      },
+      "DraftAnswerModel": {
+        "properties": {
+          "stage": {
+            "type": "string",
+            "title": "Stage",
+            "default": ""
+          },
+          "model_id": {
+            "type": "string",
+            "title": "Model Id",
+            "default": ""
+          },
+          "content": {
+            "type": "string",
+            "title": "Content",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "title": "DraftAnswerModel"
+      },
+      "EngagementMetricsResponse": {
+        "properties": {
+          "peak_hours": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Peak Hours"
+          },
+          "mode_distribution": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Mode Distribution"
+          },
+          "total_queries": {
+            "type": "integer",
+            "title": "Total Queries"
+          },
+          "favorite_mode": {
+            "type": "string",
+            "title": "Favorite Mode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "peak_hours",
+          "mode_distribution",
+          "total_queries",
+          "favorite_mode"
+        ],
+        "title": "EngagementMetricsResponse"
+      },
+      "FeedbackRequest": {
+        "properties": {
+          "query_id": {
+            "type": "string",
+            "maxLength": 50,
+            "title": "Query Id"
+          },
+          "rating": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Rating",
+            "default": ""
+          },
+          "vote": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Vote",
+            "default": ""
+          },
+          "mode": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Mode",
+            "default": ""
+          },
+          "quality_gate": {
+            "type": "string",
+            "maxLength": 30,
+            "title": "Quality Gate",
+            "default": ""
+          },
+          "comment": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Comment"
+          }
+        },
+        "type": "object",
+        "required": [
+          "query_id"
+        ],
+        "title": "FeedbackRequest"
+      },
+      "FeedbackResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "FeedbackResponse"
+      },
+      "GrowthResponse": {
+        "properties": {
+          "has_data": {
+            "type": "boolean",
+            "title": "Has Data"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/GrowthSummaryResponse"
+          },
+          "topics": {
+            "items": {
+              "$ref": "#/components/schemas/GrowthTopicItem"
+            },
+            "type": "array",
+            "title": "Topics"
+          }
+        },
+        "type": "object",
+        "required": [
+          "has_data",
+          "summary",
+          "topics"
+        ],
+        "title": "GrowthResponse"
+      },
+      "GrowthSummaryResponse": {
+        "properties": {
+          "total_topics": {
+            "type": "integer",
+            "title": "Total Topics"
+          },
+          "deep_topics": {
+            "type": "integer",
+            "title": "Deep Topics"
+          },
+          "mastered_topics": {
+            "type": "integer",
+            "title": "Mastered Topics"
+          },
+          "growth_score": {
+            "type": "integer",
+            "title": "Growth Score"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_topics",
+          "deep_topics",
+          "mastered_topics",
+          "growth_score"
+        ],
+        "title": "GrowthSummaryResponse"
+      },
+      "GrowthTopicItem": {
+        "properties": {
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "depth": {
+            "type": "integer",
+            "title": "Depth"
+          },
+          "depth_label": {
+            "type": "string",
+            "title": "Depth Label"
+          },
+          "frequency": {
+            "type": "integer",
+            "title": "Frequency"
+          },
+          "expertise": {
+            "type": "number",
+            "title": "Expertise"
+          }
+        },
+        "type": "object",
+        "required": [
+          "topic",
+          "depth",
+          "depth_label",
+          "frequency",
+          "expertise"
+        ],
+        "title": "GrowthTopicItem"
+      },
+      "GuidanceModel": {
+        "properties": {
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "default": "none"
+          },
+          "confidence_statement": {
+            "type": "string",
+            "title": "Confidence Statement",
+            "default": ""
+          },
+          "confidence_level": {
+            "type": "string",
+            "title": "Confidence Level",
+            "default": "medium"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message",
+            "default": ""
+          },
+          "suggestions": {
+            "items": {
+              "$ref": "#/components/schemas/GuidanceSuggestionModel"
+            },
+            "type": "array",
+            "title": "Suggestions",
+            "default": []
+          },
+          "intensity": {
+            "type": "string",
+            "title": "Intensity",
+            "default": "none"
+          },
+          "is_folded": {
+            "type": "boolean",
+            "title": "Is Folded",
+            "default": true
+          },
+          "show_dismiss": {
+            "type": "boolean",
+            "title": "Show Dismiss",
+            "default": false
+          },
+          "route_reason": {
+            "type": "string",
+            "title": "Route Reason",
+            "default": ""
+          },
+          "trigger": {
+            "type": "string",
+            "title": "Trigger",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "title": "GuidanceModel",
+        "description": "v5.2: Canonical guidance protocol — single source of truth."
+      },
+      "GuidanceSuggestionModel": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id",
+            "default": ""
+          },
+          "label": {
+            "type": "string",
+            "title": "Label",
+            "default": ""
+          },
+          "action_type": {
+            "type": "string",
+            "title": "Action Type",
+            "default": ""
+          },
+          "action_payload": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Action Payload",
+            "default": {}
+          },
+          "rationale": {
+            "type": "string",
+            "title": "Rationale",
+            "default": ""
+          },
+          "estimated_seconds": {
+            "type": "integer",
+            "title": "Estimated Seconds",
+            "default": 0
+          },
+          "estimated_cost_usd": {
+            "type": "number",
+            "title": "Estimated Cost Usd",
+            "default": 0.0
+          },
+          "requires_confirm": {
+            "type": "boolean",
+            "title": "Requires Confirm",
+            "default": false
+          }
+        },
+        "type": "object",
+        "title": "GuidanceSuggestionModel"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HistoryItem": {
+        "properties": {
+          "query_id": {
+            "type": "string",
+            "title": "Query Id"
+          },
+          "session_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Id"
+          },
+          "question": {
+            "type": "string",
+            "title": "Question"
+          },
+          "mode": {
+            "type": "string",
+            "title": "Mode"
+          },
+          "final_answer": {
+            "type": "string",
+            "title": "Final Answer"
+          },
+          "confidence": {
+            "type": "number",
+            "title": "Confidence"
+          },
+          "contributor_count": {
+            "type": "integer",
+            "title": "Contributor Count"
+          },
+          "latency_ms": {
+            "type": "integer",
+            "title": "Latency Ms"
+          },
+          "estimated_cost_usd": {
+            "type": "number",
+            "title": "Estimated Cost Usd"
+          },
+          "user_marked_usable": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Marked Usable"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "quality_gate": {
+            "type": "string",
+            "title": "Quality Gate",
+            "default": ""
+          },
+          "best_single_answer": {
+            "type": "string",
+            "title": "Best Single Answer",
+            "default": ""
+          },
+          "has_divergence": {
+            "type": "boolean",
+            "title": "Has Divergence",
+            "default": false
+          },
+          "divergence_summary": {
+            "type": "string",
+            "title": "Divergence Summary",
+            "default": ""
+          },
+          "key_insights": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Key Insights"
+          },
+          "divergence_points": {
+            "items": {
+              "$ref": "#/components/schemas/SocraticRevealDivergencePoint"
+            },
+            "type": "array",
+            "title": "Divergence Points"
+          }
+        },
+        "type": "object",
+        "required": [
+          "query_id",
+          "question",
+          "mode",
+          "final_answer",
+          "confidence",
+          "contributor_count",
+          "latency_ms",
+          "estimated_cost_usd",
+          "created_at",
+          "key_insights",
+          "divergence_points"
+        ],
+        "title": "HistoryItem"
+      },
+      "HistoryResponse": {
+        "properties": {
+          "history": {
+            "items": {
+              "$ref": "#/components/schemas/HistoryItem"
+            },
+            "type": "array",
+            "title": "History"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "history",
+          "total"
+        ],
+        "title": "HistoryResponse"
+      },
+      "ImprovementPlanActionResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "plan": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ImprovementPlanRecord"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "ImprovementPlanActionResponse"
+      },
+      "ImprovementPlanRecord": {
+        "properties": {
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "current_level": {
+            "type": "integer",
+            "title": "Current Level"
+          },
+          "target_level": {
+            "type": "integer",
+            "title": "Target Level"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "difficulty": {
+            "type": "integer",
+            "title": "Difficulty"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          },
+          "last_challenge_date": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Challenge Date"
+          },
+          "challenges_delivered": {
+            "type": "integer",
+            "title": "Challenges Delivered",
+            "default": 0
+          },
+          "challenges_engaged": {
+            "type": "integer",
+            "title": "Challenges Engaged",
+            "default": 0
+          },
+          "milestones": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Milestones"
+          }
+        },
+        "type": "object",
+        "required": [
+          "plan_id",
+          "topic",
+          "current_level",
+          "target_level",
+          "status",
+          "difficulty"
+        ],
+        "title": "ImprovementPlanRecord"
+      },
+      "ImprovementPlanSummary": {
+        "properties": {
+          "plan_id": {
+            "type": "string",
+            "title": "Plan Id"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "current_level": {
+            "type": "integer",
+            "title": "Current Level"
+          },
+          "target_level": {
+            "type": "integer",
+            "title": "Target Level"
+          },
+          "difficulty": {
+            "type": "integer",
+            "title": "Difficulty"
+          },
+          "progress": {
+            "type": "number",
+            "title": "Progress"
+          },
+          "challenges_delivered": {
+            "type": "integer",
+            "title": "Challenges Delivered"
+          },
+          "challenges_engaged": {
+            "type": "integer",
+            "title": "Challenges Engaged"
+          },
+          "milestones": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Milestones"
+          }
+        },
+        "type": "object",
+        "required": [
+          "plan_id",
+          "topic",
+          "status",
+          "current_level",
+          "target_level",
+          "difficulty",
+          "progress",
+          "challenges_delivered",
+          "challenges_engaged",
+          "milestones"
+        ],
+        "title": "ImprovementPlanSummary"
+      },
+      "ImprovementPlansListResponse": {
+        "properties": {
+          "plans": {
+            "items": {
+              "$ref": "#/components/schemas/ImprovementPlanRecord"
+            },
+            "type": "array",
+            "title": "Plans"
+          }
+        },
+        "type": "object",
+        "required": [
+          "plans"
+        ],
+        "title": "ImprovementPlansListResponse"
+      },
+      "LoginRequest": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Username",
+            "default": ""
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Password"
+          },
+          "phone": {
+            "type": "string",
+            "maxLength": 15,
+            "title": "Phone",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "password"
+        ],
+        "title": "LoginRequest"
+      },
+      "LogoutResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "LogoutResponse"
+      },
+      "LowConfidenceActionModel": {
+        "properties": {
+          "action": {
+            "type": "string",
+            "title": "Action"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          }
+        },
+        "type": "object",
+        "required": [
+          "action",
+          "label"
+        ],
+        "title": "LowConfidenceActionModel"
+      },
+      "ModeInfo": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "desc": {
+            "type": "string",
+            "title": "Desc"
+          },
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          },
+          "icon": {
+            "type": "string",
+            "title": "Icon"
+          },
+          "order": {
+            "type": "integer",
+            "title": "Order"
+          },
+          "contributor_count": {
+            "type": "integer",
+            "title": "Contributor Count"
+          },
+          "n_of_m": {
+            "type": "integer",
+            "title": "N Of M"
+          },
+          "has_judge": {
+            "type": "boolean",
+            "title": "Has Judge"
+          },
+          "has_critique": {
+            "type": "boolean",
+            "title": "Has Critique"
+          },
+          "has_preflight": {
+            "type": "boolean",
+            "title": "Has Preflight"
+          },
+          "max_timeout_seconds": {
+            "type": "integer",
+            "title": "Max Timeout Seconds"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "desc",
+          "detail",
+          "icon",
+          "order",
+          "contributor_count",
+          "n_of_m",
+          "has_judge",
+          "has_critique",
+          "has_preflight",
+          "max_timeout_seconds"
+        ],
+        "title": "ModeInfo"
+      },
+      "ModelResponseItem": {
+        "properties": {
+          "model_id": {
+            "type": "string",
+            "title": "Model Id"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          }
+        },
+        "type": "object",
+        "required": [
+          "model_id",
+          "content"
+        ],
+        "title": "ModelResponseItem"
+      },
+      "ModesResponse": {
+        "properties": {
+          "modes": {
+            "items": {
+              "$ref": "#/components/schemas/ModeInfo"
+            },
+            "type": "array",
+            "title": "Modes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "modes"
+        ],
+        "title": "ModesResponse"
+      },
+      "NextStepGuidanceModel": {
+        "properties": {
+          "confidence_statement": {
+            "type": "string",
+            "title": "Confidence Statement",
+            "default": ""
+          },
+          "confidence_level": {
+            "type": "string",
+            "title": "Confidence Level",
+            "default": "medium"
+          },
+          "intensity": {
+            "type": "string",
+            "title": "Intensity",
+            "default": "none"
+          },
+          "suggestions": {
+            "items": {
+              "$ref": "#/components/schemas/GuidanceSuggestionModel"
+            },
+            "type": "array",
+            "title": "Suggestions",
+            "default": []
+          },
+          "show_dismiss": {
+            "type": "boolean",
+            "title": "Show Dismiss",
+            "default": true
+          }
+        },
+        "type": "object",
+        "title": "NextStepGuidanceModel"
+      },
+      "PhoneRegisterRequest": {
+        "properties": {
+          "phone": {
+            "type": "string",
+            "maxLength": 15,
+            "minLength": 11,
+            "title": "Phone"
+          },
+          "code": {
+            "type": "string",
+            "maxLength": 6,
+            "minLength": 6,
+            "title": "Code"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 8,
+            "title": "Password"
+          },
+          "display_name": {
+            "type": "string",
+            "maxLength": 50,
+            "title": "Display Name",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "phone",
+          "code",
+          "password"
+        ],
+        "title": "PhoneRegisterRequest"
+      },
+      "PricingModelInfo": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "cost_per_1m_input": {
+            "type": "number",
+            "title": "Cost Per 1M Input"
+          },
+          "cost_per_1m_output": {
+            "type": "number",
+            "title": "Cost Per 1M Output"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "cost_per_1m_input",
+          "cost_per_1m_output"
+        ],
+        "title": "PricingModelInfo"
+      },
+      "PricingResponse": {
+        "properties": {
+          "pricing": {
+            "items": {
+              "$ref": "#/components/schemas/PricingModelInfo"
+            },
+            "type": "array",
+            "title": "Pricing"
+          },
+          "currency": {
+            "type": "string",
+            "title": "Currency"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit"
+          }
+        },
+        "type": "object",
+        "required": [
+          "pricing",
+          "currency",
+          "unit"
+        ],
+        "title": "PricingResponse"
+      },
+      "ProfileExportResponse": {
+        "properties": {
+          "exported_at": {
+            "type": "string",
+            "title": "Exported At"
+          },
+          "user_id": {
+            "type": "integer",
+            "title": "User Id"
+          },
+          "profile": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Profile"
+          },
+          "query_history": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/HistoryItem"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Query History"
+          },
+          "usage": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "additionalProperties": {
+                    "type": "integer"
+                  },
+                  "type": "object"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Usage"
+          }
+        },
+        "type": "object",
+        "required": [
+          "exported_at",
+          "user_id"
+        ],
+        "title": "ProfileExportResponse"
+      },
+      "QuotaModeUsage": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "title": "Mode"
+          },
+          "used_lifetime": {
+            "type": "integer",
+            "title": "Used Lifetime"
+          },
+          "used_today": {
+            "type": "integer",
+            "title": "Used Today"
+          },
+          "credit_cost": {
+            "type": "integer",
+            "title": "Credit Cost"
+          },
+          "credits_spent": {
+            "type": "integer",
+            "title": "Credits Spent"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode",
+          "used_lifetime",
+          "used_today",
+          "credit_cost",
+          "credits_spent"
+        ],
+        "title": "QuotaModeUsage"
+      },
+      "QuotaResponse": {
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "title": "Enabled"
+          },
+          "total_credits": {
+            "type": "integer",
+            "title": "Total Credits"
+          },
+          "credits_used": {
+            "type": "integer",
+            "title": "Credits Used"
+          },
+          "credits_remaining": {
+            "type": "integer",
+            "title": "Credits Remaining"
+          },
+          "modes": {
+            "items": {
+              "$ref": "#/components/schemas/QuotaModeUsage"
+            },
+            "type": "array",
+            "title": "Modes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "enabled",
+          "total_credits",
+          "credits_used",
+          "credits_remaining",
+          "modes"
+        ],
+        "title": "QuotaResponse"
+      },
+      "RecentTurnItem": {
+        "properties": {
+          "ts": {
+            "type": "string",
+            "title": "Ts"
+          },
+          "question_snippet": {
+            "type": "string",
+            "title": "Question Snippet"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary"
+          },
+          "mode": {
+            "type": "string",
+            "title": "Mode"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ts",
+          "question_snippet",
+          "summary",
+          "mode",
+          "topic"
+        ],
+        "title": "RecentTurnItem"
+      },
+      "RecentTurnsResponse": {
+        "properties": {
+          "recent_turns": {
+            "items": {
+              "$ref": "#/components/schemas/RecentTurnItem"
+            },
+            "type": "array",
+            "title": "Recent Turns"
+          }
+        },
+        "type": "object",
+        "required": [
+          "recent_turns"
+        ],
+        "title": "RecentTurnsResponse"
+      },
+      "RegisterRequest": {
+        "properties": {
+          "username": {
+            "type": "string",
+            "maxLength": 30,
+            "minLength": 2,
+            "title": "Username"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 8,
+            "title": "Password"
+          },
+          "display_name": {
+            "type": "string",
+            "maxLength": 50,
+            "title": "Display Name",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "username",
+          "password"
+        ],
+        "title": "RegisterRequest"
+      },
+      "RoundtableCheckResponse": {
+        "properties": {
+          "suitability": {
+            "type": "string",
+            "title": "Suitability"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          }
+        },
+        "type": "object",
+        "required": [
+          "suitability",
+          "reason"
+        ],
+        "title": "RoundtableCheckResponse"
+      },
+      "RoundtableChoiceRequest": {
+        "properties": {
+          "choice_point": {
+            "type": "string",
+            "pattern": "^[AB]$",
+            "title": "Choice Point"
+          },
+          "action": {
+            "type": "string",
+            "pattern": "^(deepen|conclude|inject)$",
+            "title": "Action"
+          },
+          "user_input": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 5000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "User Input"
+          },
+          "focus_topic": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 500
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Focus Topic"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "choice_point",
+          "action"
+        ],
+        "title": "RoundtableChoiceRequest"
+      },
+      "RoundtableChoiceResponse": {
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "title": "Ok"
+          }
+        },
+        "type": "object",
+        "required": [
+          "ok"
+        ],
+        "title": "RoundtableChoiceResponse"
+      },
+      "RoundtableResumeResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "state": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "State"
+          },
+          "session_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Id"
+          },
+          "choice_point": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Choice Point"
+          },
+          "decision_packet": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/DecisionPacket"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "state_snapshot": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/RoundtableResumeStateSnapshot"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "title": "RoundtableResumeResponse"
+      },
+      "RoundtableResumeStateSnapshot": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "title": "Question",
+            "default": ""
+          },
+          "expert_count": {
+            "type": "integer",
+            "title": "Expert Count",
+            "default": 0
+          },
+          "experts": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Experts"
+          },
+          "dispute_map": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dispute Map"
+          },
+          "rebuttals": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Rebuttals"
+          },
+          "debate_round": {
+            "type": "integer",
+            "title": "Debate Round",
+            "default": 0
+          },
+          "choice_point": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Choice Point"
+          }
+        },
+        "type": "object",
+        "title": "RoundtableResumeStateSnapshot"
+      },
+      "RoundtableStartRequest": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "maxLength": 10000,
+            "title": "Question"
+          },
+          "session_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Session Id"
+          },
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Locale"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "title": "RoundtableStartRequest"
+      },
+      "SearchCitationModel": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title",
+            "default": ""
+          },
+          "url": {
+            "type": "string",
+            "title": "Url",
+            "default": ""
+          },
+          "snippet": {
+            "type": "string",
+            "title": "Snippet",
+            "default": ""
+          },
+          "source": {
+            "type": "string",
+            "title": "Source",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "title": "SearchCitationModel"
+      },
+      "SendCodeRequest": {
+        "properties": {
+          "phone": {
+            "type": "string",
+            "maxLength": 15,
+            "minLength": 11,
+            "title": "Phone"
+          },
+          "purpose": {
+            "type": "string",
+            "pattern": "^(register|login|reset)$",
+            "title": "Purpose",
+            "default": "register"
+          }
+        },
+        "type": "object",
+        "required": [
+          "phone"
+        ],
+        "title": "SendCodeRequest"
+      },
+      "SendCodeResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "Status"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "message"
+        ],
+        "title": "SendCodeResponse"
+      },
+      "SetLanguageRequest": {
+        "properties": {
+          "language": {
+            "type": "string",
+            "title": "Language"
+          }
+        },
+        "type": "object",
+        "required": [
+          "language"
+        ],
+        "title": "SetLanguageRequest"
+      },
+      "SocraticRespondRequest": {
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "maxLength": 50,
+            "title": "Session Id"
+          },
+          "message": {
+            "type": "string",
+            "maxLength": 5000,
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "session_id",
+          "message"
+        ],
+        "title": "SocraticRespondRequest"
+      },
+      "SocraticRespondResponse": {
+        "properties": {
+          "guide_message": {
+            "type": "string",
+            "title": "Guide Message"
+          },
+          "round": {
+            "type": "integer",
+            "title": "Round"
+          },
+          "max_rounds": {
+            "type": "integer",
+            "title": "Max Rounds"
+          },
+          "latency_ms": {
+            "type": "integer",
+            "title": "Latency Ms"
+          }
+        },
+        "type": "object",
+        "required": [
+          "guide_message",
+          "round",
+          "max_rounds",
+          "latency_ms"
+        ],
+        "title": "SocraticRespondResponse"
+      },
+      "SocraticRevealDivergenceMap": {
+        "properties": {
+          "consensus_points": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Consensus Points"
+          },
+          "divergence_points": {
+            "items": {
+              "$ref": "#/components/schemas/SocraticRevealDivergencePoint"
+            },
+            "type": "array",
+            "title": "Divergence Points"
+          }
+        },
+        "type": "object",
+        "required": [
+          "consensus_points",
+          "divergence_points"
+        ],
+        "title": "SocraticRevealDivergenceMap"
+      },
+      "SocraticRevealDivergencePoint": {
+        "properties": {
+          "topic": {
+            "type": "string",
+            "title": "Topic"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "positions": {
+            "items": {
+              "$ref": "#/components/schemas/DivergencePosition"
+            },
+            "type": "array",
+            "title": "Positions"
+          },
+          "consensus_ratio": {
+            "type": "number",
+            "title": "Consensus Ratio"
+          },
+          "difficulty": {
+            "type": "string",
+            "title": "Difficulty"
+          }
+        },
+        "type": "object",
+        "required": [
+          "topic",
+          "description",
+          "positions",
+          "consensus_ratio",
+          "difficulty"
+        ],
+        "title": "SocraticRevealDivergencePoint"
+      },
+      "SocraticRevealRequest": {
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "maxLength": 50,
+            "title": "Session Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "session_id"
+        ],
+        "title": "SocraticRevealRequest"
+      },
+      "SocraticRevealResponse": {
+        "properties": {
+          "full_answer": {
+            "type": "string",
+            "title": "Full Answer"
+          },
+          "divergence_map": {
+            "$ref": "#/components/schemas/SocraticRevealDivergenceMap"
+          },
+          "cognitive_snapshot": {
+            "$ref": "#/components/schemas/CognitiveSnapshot"
+          },
+          "guide_rounds_used": {
+            "type": "integer",
+            "title": "Guide Rounds Used"
+          }
+        },
+        "type": "object",
+        "required": [
+          "full_answer",
+          "divergence_map",
+          "cognitive_snapshot",
+          "guide_rounds_used"
+        ],
+        "title": "SocraticRevealResponse"
+      },
+      "SocraticStartDivergenceMap": {
+        "properties": {
+          "consensus_points": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Consensus Points"
+          },
+          "divergence_count": {
+            "type": "integer",
+            "title": "Divergence Count"
+          },
+          "overall_consensus": {
+            "type": "number",
+            "title": "Overall Consensus"
+          }
+        },
+        "type": "object",
+        "required": [
+          "consensus_points",
+          "divergence_count",
+          "overall_consensus"
+        ],
+        "title": "SocraticStartDivergenceMap"
+      },
+      "SocraticStartRequest": {
+        "properties": {
+          "question": {
+            "type": "string",
+            "maxLength": 10000,
+            "title": "Question"
+          },
+          "locale": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Locale"
+          }
+        },
+        "type": "object",
+        "required": [
+          "question"
+        ],
+        "title": "SocraticStartRequest"
+      },
+      "SocraticStartResponse": {
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "title": "Session Id"
+          },
+          "phase1_latency_ms": {
+            "type": "integer",
+            "title": "Phase1 Latency Ms"
+          },
+          "max_guide_rounds": {
+            "type": "integer",
+            "title": "Max Guide Rounds"
+          },
+          "divergence_map": {
+            "$ref": "#/components/schemas/SocraticStartDivergenceMap"
+          },
+          "initial_guide": {
+            "type": "string",
+            "title": "Initial Guide"
+          }
+        },
+        "type": "object",
+        "required": [
+          "session_id",
+          "phase1_latency_ms",
+          "max_guide_rounds",
+          "divergence_map",
+          "initial_guide"
+        ],
+        "title": "SocraticStartResponse"
+      },
+      "StanceEvolution": {
+        "properties": {
+          "expert": {
+            "type": "string",
+            "title": "Expert"
+          },
+          "r1_stance": {
+            "type": "string",
+            "title": "R1 Stance"
+          },
+          "final_stance": {
+            "type": "string",
+            "title": "Final Stance"
+          },
+          "changed": {
+            "type": "boolean",
+            "title": "Changed"
+          },
+          "changed_reason": {
+            "type": "string",
+            "title": "Changed Reason",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "expert",
+          "r1_stance",
+          "final_stance",
+          "changed"
+        ],
+        "title": "StanceEvolution"
+      },
+      "UnresolvedItem": {
+        "properties": {
+          "point": {
+            "type": "string",
+            "title": "Point"
+          },
+          "reason": {
+            "type": "string",
+            "title": "Reason"
+          },
+          "how_to_resolve": {
+            "type": "string",
+            "title": "How To Resolve"
+          }
+        },
+        "type": "object",
+        "required": [
+          "point",
+          "reason",
+          "how_to_resolve"
+        ],
+        "title": "UnresolvedItem"
+      },
+      "UploadResponse": {
+        "properties": {
+          "file_id": {
+            "type": "string",
+            "title": "File Id"
+          },
+          "filename": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Filename"
+          },
+          "content_type": {
+            "type": "string",
+            "title": "Content Type"
+          },
+          "size_bytes": {
+            "type": "integer",
+            "title": "Size Bytes"
+          },
+          "is_image": {
+            "type": "boolean",
+            "title": "Is Image"
+          }
+        },
+        "type": "object",
+        "required": [
+          "file_id",
+          "filename",
+          "content_type",
+          "size_bytes",
+          "is_image"
+        ],
+        "title": "UploadResponse"
+      },
+      "UsageResponse": {
+        "properties": {
+          "usage": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Usage"
+          },
+          "limits": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Limits"
+          },
+          "remaining": {
+            "additionalProperties": {
+              "type": "integer"
+            },
+            "type": "object",
+            "title": "Remaining"
+          }
+        },
+        "type": "object",
+        "required": [
+          "usage",
+          "limits",
+          "remaining"
+        ],
+        "title": "UsageResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "ValueDisputeForUser": {
+        "properties": {
+          "point": {
+            "type": "string",
+            "title": "Point"
+          },
+          "dimension_id": {
+            "type": "string",
+            "title": "Dimension Id",
+            "default": ""
+          },
+          "ask_user": {
+            "type": "string",
+            "title": "Ask User",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "point"
+        ],
+        "title": "ValueDisputeForUser"
+      }
+    }
+  }
+}

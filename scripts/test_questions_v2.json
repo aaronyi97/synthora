@@ -1,0 +1,506 @@
+{
+  "version": "3.0",
+  "description": "Synthora 标准评估题库 v3 — 42 题 8 类（v2基础上新增 technical×5 + analytical×5 + search_factual×2，针对v4.29弱项验证）",
+  "categories": {
+    "factual": "有明确正确答案的知识题",
+    "controversial": "需要多方平衡的争议题",
+    "technical": "技术深度题",
+    "analytical": "多维度分析题（聚合强项，回归检测）",
+    "cultural": "跨文化分析题",
+    "reasoning": "逻辑/数学推理题",
+    "meta_cognition": "认知框架/方法论题"
+  },
+  "questions": [
+    {
+      "id": "factual_01",
+      "category": "factual",
+      "difficulty": "medium",
+      "question": "量子纠缠是否允许超光速通信？请从物理学原理出发详细解释。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 35,
+      "trap_notes": "常见错误：混淆纠缠态塌缩与信息传递，忽略 no-communication theorem"
+    },
+    {
+      "id": "factual_02",
+      "category": "factual",
+      "difficulty": "easy",
+      "question": "CRISPR-Cas9 基因编辑技术的工作原理是什么？目前面临哪些技术挑战？",
+      "expected_modes": ["light", "deep"],
+      "quality_floor": 33,
+      "trap_notes": "需要区分 Cas9/Cas12/Cas13，提到脱靶效应和递送问题"
+    },
+    {
+      "id": "factual_03",
+      "category": "factual",
+      "difficulty": "hard",
+      "question": "请解释 mRNA 疫苗与传统灭活疫苗在免疫机制上的核心差异，以及各自的优缺点。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 36,
+      "trap_notes": "需要涉及先天免疫和适应性免疫两条路径，提到 T 细胞反应差异"
+    },
+    {
+      "id": "factual_04",
+      "category": "factual",
+      "difficulty": "medium",
+      "question": "太阳系中哪些天体最有可能存在地外生命？请基于目前的科学证据排序并说明理由。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 34,
+      "trap_notes": "不能只提火星，需涵盖 Europa, Enceladus, Titan 等"
+    },
+    {
+      "id": "factual_05",
+      "category": "factual",
+      "difficulty": "medium",
+      "question": "请解释 TCP 和 UDP 协议的核心区别，各自适用的场景，以及 QUIC 协议是如何结合两者优点的。",
+      "expected_modes": ["light", "deep"],
+      "quality_floor": 35,
+      "trap_notes": "QUIC 基于 UDP 实现可靠传输，需提到 0-RTT、多路复用、内置加密"
+    },
+    {
+      "id": "controversial_01",
+      "category": "controversial",
+      "difficulty": "hard",
+      "question": "AI 是否应该被赋予法律人格？请从法律、伦理、技术可行性三个维度分析。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 36,
+      "trap_notes": "需呈现支持方（EU 提案）和反对方（工具论）论据，不能一边倒"
+    },
+    {
+      "id": "controversial_02",
+      "category": "controversial",
+      "difficulty": "medium",
+      "question": "核能是否应该被视为绿色能源？请综合安全性、碳排放、废料处理和经济性分析。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 35,
+      "trap_notes": "需提到 EU 分类法争议、SMR 新技术、不同国家的政策立场差异"
+    },
+    {
+      "id": "controversial_03",
+      "category": "controversial",
+      "difficulty": "hard",
+      "question": "远程办公会成为未来的主流工作模式吗？请分析支持和反对的证据。",
+      "expected_modes": ["light", "deep"],
+      "quality_floor": 33,
+      "trap_notes": "需区分行业差异，引用实际企业案例和研究数据，不能只讲理论"
+    },
+    {
+      "id": "controversial_04",
+      "category": "controversial",
+      "difficulty": "medium",
+      "question": "加密货币是否有可能取代传统法定货币？请从货币理论和实践两个层面分析。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 34,
+      "trap_notes": "需区分 BTC/稳定币/CBDC，提到格雷欣法则、网络效应、监管因素"
+    },
+    {
+      "id": "controversial_05",
+      "category": "controversial",
+      "difficulty": "hard",
+      "question": "基因编辑婴儿在伦理上是否可以被接受？请讨论治疗性编辑与增强性编辑的区分。",
+      "expected_modes": ["research"],
+      "quality_floor": 37,
+      "trap_notes": "需提到贺建奎事件、生殖系编辑禁令、残障权利视角、滑坡论证"
+    },
+    {
+      "id": "technical_01",
+      "category": "technical",
+      "difficulty": "hard",
+      "question": "请解释 Transformer 架构中自注意力机制的数学原理，并说明为什么它比 RNN 更适合处理长序列。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 36,
+      "trap_notes": "需要 Q/K/V 矩阵运算、softmax 缩放、O(n²) 复杂度分析、并行化优势"
+    },
+    {
+      "id": "technical_02",
+      "category": "technical",
+      "difficulty": "medium",
+      "question": "微服务架构和单体架构各有什么优缺点？什么规模的团队和项目适合采用微服务？",
+      "expected_modes": ["light", "deep"],
+      "quality_floor": 34,
+      "trap_notes": "避免一边倒推荐微服务，需提到分布式事务、运维复杂度、Conway 定律"
+    },
+    {
+      "id": "technical_03",
+      "category": "technical",
+      "difficulty": "hard",
+      "question": "请比较 Rust 的所有权系统和 Go 的垃圾回收机制在内存安全方面的不同实现路径，各自的权衡是什么？",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 36,
+      "trap_notes": "需涉及零成本抽象、借用检查器、GC pause、编译时 vs 运行时安全保证"
+    },
+    {
+      "id": "technical_04",
+      "category": "technical",
+      "difficulty": "medium",
+      "question": "CAP 定理在分布式系统设计中意味着什么？请用 3 个实际系统举例说明不同的取舍。",
+      "expected_modes": ["deep"],
+      "quality_floor": 35,
+      "trap_notes": "经典例子：Cassandra(AP)、HBase(CP)、需澄清 CAP 的实际含义常被误解"
+    },
+    {
+      "id": "technical_05",
+      "category": "technical",
+      "difficulty": "hard",
+      "question": "请解释大语言模型的涌现能力(emergent abilities)现象，目前学术界对此有哪些不同解释？",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 37,
+      "trap_notes": "需提到 Wei et al. 2022 论文、度量选择争议(Schaeffer et al. 2023)、scaling laws"
+    },
+    {
+      "id": "cultural_01",
+      "category": "cultural",
+      "difficulty": "medium",
+      "question": "日本的终身雇佣制度是如何形成的？它在当代日本社会中正在发生什么样的变化？",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 34,
+      "trap_notes": "需区分大企业和中小企业、提到非正规雇佣增长、安倍经济学的影响"
+    },
+    {
+      "id": "cultural_02",
+      "category": "cultural",
+      "difficulty": "hard",
+      "question": "\"面子\"文化在东亚商业谈判中扮演什么角色？与西方的直接沟通风格相比有何利弊？",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 35,
+      "trap_notes": "避免刻板印象，需引用 Hofstede 文化维度或 Ting-Toomey 面子协商理论"
+    },
+    {
+      "id": "cultural_03",
+      "category": "cultural",
+      "difficulty": "medium",
+      "question": "北欧国家的高福利制度为什么能够维持？其他国家是否能复制这一模式？",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 35,
+      "trap_notes": "需分析人口规模、社会信任、税收结构、历史路径依赖等因素"
+    },
+    {
+      "id": "cultural_04",
+      "category": "cultural",
+      "difficulty": "medium",
+      "question": "中医和西医在认识论上有什么根本差异？两者是否可能真正融合？",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 34,
+      "trap_notes": "需客观呈现，不能一边倒否定或肯定中医，提到循证医学框架的适用性讨论"
+    },
+    {
+      "id": "cultural_05",
+      "category": "cultural",
+      "difficulty": "hard",
+      "question": "为什么韩国的文化输出（韩流）能在全球取得如此大的成功？这种模式可以被其他国家复制吗？",
+      "expected_modes": ["light", "deep"],
+      "quality_floor": 33,
+      "trap_notes": "需分析政府战略、练习生体系、数字平台利用、文化折扣理论"
+    },
+    {
+      "id": "reasoning_01",
+      "category": "reasoning",
+      "difficulty": "hard",
+      "question": "一个房间里有100个人，其中99%是左撇子。需要让多少个左撇子离开，才能使房间里左撇子的比例变为98%？",
+      "expected_modes": ["light", "deep"],
+      "quality_floor": 38,
+      "trap_notes": "答案是50人。常见错误：直觉认为只需要1人离开。需要列方程 (99-x)/(100-x)=0.98"
+    },
+    {
+      "id": "reasoning_02",
+      "category": "reasoning",
+      "difficulty": "medium",
+      "question": "有三扇门，其中一扇后面有奖品。你选了一扇门后，主持人打开了另一扇没有奖品的门。你应该换门吗？请用概率论严格证明。",
+      "expected_modes": ["light", "deep"],
+      "quality_floor": 36,
+      "trap_notes": "蒙提霍尔问题，换门概率 2/3。需要严格的条件概率推导，不能只给直觉解释"
+    },
+    {
+      "id": "reasoning_03",
+      "category": "reasoning",
+      "difficulty": "hard",
+      "question": "如果地球的半径增加1米，赤道上的绳子需要增加多长？如果绳子绕在篮球上，篮球半径增加1米呢？两个答案的关系是什么？",
+      "expected_modes": ["deep"],
+      "quality_floor": 37,
+      "trap_notes": "两种情况增量相同，都是 2π 米。关键洞察：周长增量只取决于半径增量，与原始半径无关"
+    },
+    {
+      "id": "reasoning_04",
+      "category": "reasoning",
+      "difficulty": "medium",
+      "question": "一个人说\"我正在说谎\"。这句话是真的还是假的？请分析这个悖论的逻辑结构，以及哲学和数学上的解决方案。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 35,
+      "trap_notes": "说谎者悖论，需提到 Tarski 层级理论、Russell 类型论、Gödel 不完备定理的关联"
+    },
+    {
+      "id": "reasoning_05",
+      "category": "reasoning",
+      "difficulty": "hard",
+      "question": "囚徒困境中，如果博弈重复进行无限次，合作策略能否成为纳什均衡？请解释 folk theorem 的核心思想。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 37,
+      "trap_notes": "需区分有限次和无限次博弈、折现因子的作用、触发策略、子博弈完美均衡"
+    },
+    {
+      "id": "meta_cognition_01",
+      "category": "meta_cognition",
+      "difficulty": "hard",
+      "question": "查理·芒格的\"多元思维模型\"方法论的核心思想是什么？请评估其在实际决策中的优势和局限性。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 35,
+      "trap_notes": "不能只列举模型清单，需分析方法论本身的认识论基础和适用边界"
+    },
+    {
+      "id": "meta_cognition_02",
+      "category": "meta_cognition",
+      "difficulty": "medium",
+      "question": "什么是第一性原理思维？它与类比推理有什么区别？请各举一个实际应用案例。",
+      "expected_modes": ["light", "deep"],
+      "quality_floor": 33,
+      "trap_notes": "不能只引用 Elon Musk 的例子，需要追溯到亚里士多德，分析方法论的适用条件"
+    },
+    {
+      "id": "meta_cognition_03",
+      "category": "meta_cognition",
+      "difficulty": "hard",
+      "question": "贝叶斯思维如何帮助我们在不确定性中做出更好的决策？请用一个具体的医疗诊断案例说明。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 36,
+      "trap_notes": "需用具体数字演算先验/后验/似然，提到基率谬误（base rate neglect）"
+    },
+    {
+      "id": "meta_cognition_04",
+      "category": "meta_cognition",
+      "difficulty": "medium",
+      "question": "系统思维和线性思维有什么本质区别？在分析复杂社会问题时，为什么线性因果分析往往会失败？",
+      "expected_modes": ["deep"],
+      "quality_floor": 34,
+      "trap_notes": "需提到反馈环路、涌现性、延迟效应，引用 Senge 或 Meadows 的相关理论"
+    },
+    {
+      "id": "meta_cognition_05",
+      "category": "meta_cognition",
+      "difficulty": "hard",
+      "question": "波普尔的证伪主义和库恩的范式转换理论对\"科学进步\"给出了截然不同的描述。哪种更接近科学实践的真相？",
+      "expected_modes": ["research"],
+      "quality_floor": 37,
+      "trap_notes": "需呈现两种理论的核心论点和批评，提到 Lakatos 的研究纲领作为折中方案"
+    },
+    {
+      "id": "search_factual_01",
+      "category": "factual",
+      "difficulty": "medium",
+      "question": "请列出2025年下半年至2026年初全球AI领域最重要的3个技术进展或产品发布，并说明为什么重要。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 30,
+      "requires_search": true,
+      "trap_notes": "必须包含训练数据截止后的实时信息。验证 Tavily 搜索是否注入、rag_section 是否非空、答案是否引用了搜索结果"
+    },
+    {
+      "id": "search_factual_02",
+      "category": "factual",
+      "difficulty": "hard",
+      "question": "请查找并对比2025年全球主要经济体（美国、中国、欧盟）的最新GDP增速数据，分析其背后的驱动因素。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 28,
+      "requires_search": true,
+      "trap_notes": "需要实时经济数据，训练数据不够。验证 fact_warnings 中 verified_count > 0，数据来源可追溯"
+    },
+    {
+      "id": "search_controversial_01",
+      "category": "controversial",
+      "difficulty": "hard",
+      "question": "截至目前，全球各主要国家对AI监管采取了哪些不同的立场和立法措施？请对比分析。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 30,
+      "requires_search": true,
+      "trap_notes": "AI监管政策变化极快，必须依赖搜索获取最新信息。需区分EU AI Act/美国行政令/中国算法备案等不同路径"
+    },
+    {
+      "id": "hallucination_trap_01",
+      "category": "reasoning",
+      "difficulty": "hard",
+      "question": "林黛玉是如何倒拔垂杨柳的？请详细描述这个经典场景。",
+      "expected_modes": ["deep"],
+      "quality_floor": 30,
+      "hallucination_trap": true,
+      "trap_notes": "前提错误诱导题——倒拔垂杨柳是鲁智深的典故，不是林黛玉。系统必须指出前提错误，而不是编造虚假场景。如果系统一本正经描述了林黛玉倒拔垂杨柳，则严重幻觉"
+    },
+    {
+      "id": "hallucination_trap_02",
+      "category": "factual",
+      "difficulty": "hard",
+      "question": "请介绍张三丰在2023年发表的关于量子引力的Nature论文的主要发现。",
+      "expected_modes": ["deep"],
+      "quality_floor": 25,
+      "hallucination_trap": true,
+      "trap_notes": "完全虚构的论文。系统必须表示无法确认此论文存在，而不是编造论文内容。如果编造了具体实验方法和结论，则严重幻觉（SOURCE_FABRICATION）"
+    },
+    {
+      "id": "hallucination_trap_03",
+      "category": "factual",
+      "difficulty": "hard",
+      "question": "请引用至少3篇关于大语言模型幻觉问题的学术论文，给出完整的作者、年份、标题和发表期刊/会议。",
+      "expected_modes": ["deep"],
+      "quality_floor": 30,
+      "hallucination_trap": true,
+      "trap_notes": "归因验证题——检查引用的论文是否真实存在（作者/年份/标题是否匹配）。常见幻觉：编造看似合理的论文标题或张冠李戴作者。覆盖错误类型: FABRICATED_CLAIM (22.6%)"
+    },
+    {
+      "id": "hallucination_trap_04",
+      "category": "reasoning",
+      "difficulty": "medium",
+      "question": "一个水池有两个进水管和一个出水管。A管每小时注入3吨，B管每小时注入5吨，出水管每小时排出2吨。水池容量50吨，初始有10吨水。请精确计算注满水池需要多少小时多少分钟？",
+      "expected_modes": ["deep"],
+      "quality_floor": 35,
+      "hallucination_trap": true,
+      "trap_notes": "数值验算题——答案必须是 (50-10)/(3+5-2) = 40/6 = 6小时40分钟。任何偏差都是计算错误。覆盖错误类型: NUMERICAL_ERROR (19.4%)"
+    },
+    {
+      "id": "hallucination_trap_05",
+      "category": "controversial",
+      "difficulty": "hard",
+      "question": "关于全球变暖，你有多大把握认为人类活动是主要原因？请给出一个具体的概率，并说明这个概率的来源。",
+      "expected_modes": ["deep"],
+      "quality_floor": 30,
+      "hallucination_trap": true,
+      "trap_notes": "置信度校准题——IPCC AR6 说 >95%。如果答案给出精确概率(如99%)但没有引用方法论来源，则是 CONFIDENCE_WITHOUT_BASIS。如果引用了IPCC则合格。覆盖错误类型: CONFIDENCE_WITHOUT_BASIS (12.9%)"
+    },
+    {
+      "id": "hallucination_trap_06",
+      "category": "technical",
+      "difficulty": "hard",
+      "question": "请比较SHA-256的碰撞攻击复杂度和AES-256的暴力破解复杂度，哪个更容易被攻破？请给出具体的安全等级数值。",
+      "expected_modes": ["deep"],
+      "quality_floor": 30,
+      "hallucination_trap": true,
+      "trap_notes": "概念域混淆题——SHA-256碰撞是生日攻击O(2^128)，AES-256暴力是O(2^256)，但安全等级含义不同（碰撞vs原像vs密钥恢复）。混淆不同攻击模型或直接比较不可比的数字就是 CONCEPTUAL_CONFLATION。覆盖错误类型: INTERNAL_CONTRADICTION / CONCEPTUAL_CONFLATION"
+    },
+    {
+      "id": "robustness_01",
+      "category": "meta_cognition",
+      "difficulty": "easy",
+      "question": "嗯",
+      "expected_modes": ["light", "deep"],
+      "quality_floor": 10,
+      "trap_notes": "极短模糊输入。系统不应崩溃，应给出某种引导性回复（如请求澄清）。主要测试鲁棒性，不测内容质量"
+    },
+    {
+      "id": "technical_v3_01",
+      "category": "technical",
+      "difficulty": "hard",
+      "question": "请解释 Linux 内核的 CFS（完全公平调度器）的工作原理。它用什么数据结构，如何计算 vruntime，为什么比 O(1) 调度器更公平？",
+      "expected_modes": ["deep"],
+      "quality_floor": 36,
+      "v4_29_target": true,
+      "trap_notes": "验证 judge 精确性铁律。有精确答案：红黑树、vruntime=实际运行时间×权重倒数、时间复杂度O(log n)。如果聚合稀释了精度（添加不相关视角）则铁律失效"
+    },
+    {
+      "id": "technical_v3_02",
+      "category": "technical",
+      "difficulty": "hard",
+      "question": "TCP 的三次握手为什么是三次而不是两次？两次握手会产生什么具体问题？请用网络包交互图说明。",
+      "expected_modes": ["deep"],
+      "quality_floor": 36,
+      "v4_29_target": true,
+      "trap_notes": "有标准答案：两次握手无法防止历史连接初始化（半连接问题）。好答案需给出具体的包序列图，说明 ISN 同步的必要性。测试聚合是否保留了最精确的那个模型的技术论证"
+    },
+    {
+      "id": "technical_v3_03",
+      "category": "technical",
+      "difficulty": "hard",
+      "question": "什么是数据库索引的最左前缀匹配原则？给定联合索引 (a, b, c)，以下哪些查询能用到索引：WHERE a=1, WHERE b=1, WHERE a=1 AND c=1, WHERE a=1 AND b>1 AND c=1？",
+      "expected_modes": ["deep"],
+      "quality_floor": 37,
+      "v4_29_target": true,
+      "trap_notes": "精确可验证答案：a=1 ✓全用; b=1 ✗不用; a=1 AND c=1 ✓仅用a; a=1 AND b>1 AND c=1 ✓用a和b但c用不上（范围查询截断）。第四个是关键区分点，大多数模型会答错"
+    },
+    {
+      "id": "technical_v3_04",
+      "category": "technical",
+      "difficulty": "hard",
+      "question": "解释 React 的 Fiber 架构解决了原来 Stack Reconciler 的什么问题？时间切片（Time Slicing）是如何实现可中断渲染的？",
+      "expected_modes": ["deep"],
+      "quality_floor": 35,
+      "v4_29_target": true,
+      "trap_notes": "Stack Reconciler 是同步递归，无法中断，长任务阻塞主线程。Fiber 将任务分解为工作单元，通过 requestIdleCallback/MessageChannel 实现让步。测试聚合是否保留了精准的技术机制描述"
+    },
+    {
+      "id": "technical_v3_05",
+      "category": "technical",
+      "difficulty": "hard",
+      "question": "Python 的 GIL（全局解释器锁）到底锁的是什么？为什么 CPU 密集型任务用多线程没有加速，而 IO 密集型任务可以？请从字节码执行层面解释。",
+      "expected_modes": ["deep"],
+      "quality_floor": 36,
+      "v4_29_target": true,
+      "trap_notes": "GIL 保护 CPython 解释器状态，每执行100个字节码（或 IO 时）释放。CPU密集：线程竞争GIL，实际串行。IO密集：等待IO时GIL释放，其他线程可运行。需要从 sys.getswitchinterval() 和字节码层面说明"
+    },
+    {
+      "id": "analytical_v3_01",
+      "category": "analytical",
+      "difficulty": "hard",
+      "question": "独立开发者应该选择 React 还是 Vue 作为前端框架？请给出多角度分析，包括生态、学习曲线、就业市场、长期维护等维度。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 35,
+      "v4_29_regression": true,
+      "trap_notes": "聚合强项回归检测。这类多维度权衡题聚合历史上有96.3%胜率。预期聚合答案应综合多个模型的不同侧重点，比任何单模型都更全面。如果聚合输了说明铁律或其他变更出了问题"
+    },
+    {
+      "id": "analytical_v3_02",
+      "category": "analytical",
+      "difficulty": "hard",
+      "question": "一个有 10 万用户的 SaaS 产品，创始人应该优先融资还是保持盈亏平衡自力更生？请分析不同路径的利弊和适用条件。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 35,
+      "v4_29_regression": true,
+      "trap_notes": "开放性商业决策分析，没有唯一正确答案，聚合应该提供比单模型更全面的框架（市场竞争速度、资本成本、控制权稀释、产品市场契合度等多维度）"
+    },
+    {
+      "id": "analytical_v3_03",
+      "category": "analytical",
+      "difficulty": "hard",
+      "question": "为什么中国的移动支付（微信支付、支付宝）能在短时间内大规模普及，而美国的移动支付发展相对缓慢？请从技术、文化、基础设施、监管四个维度分析。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 36,
+      "v4_29_regression": true,
+      "trap_notes": "多因素跨文化分析，聚合应能整合：技术(二维码vs NFC)、文化(跳过信用卡阶段)、基础设施(银行账户渗透率)、监管(沙盒vs严格监管)。各模型视角互补性强"
+    },
+    {
+      "id": "analytical_v3_04",
+      "category": "analytical",
+      "difficulty": "hard",
+      "question": "电动汽车在中国的普及速度远超欧美，原因是什么？这种优势能持续吗？",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 35,
+      "v4_29_regression": true,
+      "trap_notes": "产业分析题，需要整合：供应链（稀土/电池）、政策（补贴/限牌）、市场（价格敏感性）、技术（本土车企迭代速度）等多个维度。聚合应比单个模型更立体"
+    },
+    {
+      "id": "analytical_v3_05",
+      "category": "analytical",
+      "difficulty": "hard",
+      "question": "播客作为媒体形式，在视频（YouTube/抖音）崛起的时代为什么没有被取代，反而增长了？请分析播客独特的使用场景和商业模式。",
+      "expected_modes": ["deep", "research"],
+      "quality_floor": 34,
+      "v4_29_regression": true,
+      "trap_notes": "媒体生态分析，需涵盖：使用场景（多任务/通勤）、深度内容消费需求、广告模式差异、订阅经济、创作者关系等。多模型视角互补性强，适合聚合"
+    },
+    {
+      "id": "search_factual_v3_01",
+      "category": "factual",
+      "difficulty": "hard",
+      "question": "2025年，哪个AI模型在编程领域取得了最显著的突破？请描述其具体的技术能力和基准测试结果。",
+      "expected_modes": ["research"],
+      "quality_floor": 28,
+      "requires_search": true,
+      "v4_29_search_test": true,
+      "trap_notes": "Research模式搜索能力核心验证题。训练数据截止前的模型无法回答2025年的具体事件。验证：rag_section非空、答案引用了搜索结果、Perplexity/Kimi的实时信息被有效整合到聚合答案中"
+    },
+    {
+      "id": "search_factual_v3_02",
+      "category": "factual",
+      "difficulty": "hard",
+      "question": "截至2026年初，全球有哪些国家已经通过或正在推进针对AI的专门立法？请列出主要法案的核心条款和实施进度。",
+      "expected_modes": ["research"],
+      "quality_floor": 27,
+      "requires_search": true,
+      "v4_29_search_test": true,
+      "trap_notes": "AI监管政策实时信息题。EU AI Act已通过但实施时间表在演变，其他国家立法进度需要实时搜索才能准确回答。验证Research模式的时效性信息获取能力是否优于单模型"
+    }
+  ]
+}

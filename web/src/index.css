@@ -1,0 +1,168 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 240 6% 4%;        /* surface-0 #09090b */
+    --foreground: 240 5% 84%;       /* zinc-200 */
+    --card: 240 6% 6%;              /* surface-1 #0f0f12 */
+    --card-foreground: 240 5% 84%;
+    --popover: 240 6% 6%;
+    --popover-foreground: 240 5% 84%;
+    --primary: 46 97% 48%;          /* oracle-500 #eab308 */
+    --primary-foreground: 240 6% 4%;
+    --secondary: 240 4% 12%;        /* surface-2 #18181b */
+    --secondary-foreground: 240 5% 84%;
+    --muted: 240 4% 14%;            /* surface-3 #1e1e22 */
+    --muted-foreground: 240 4% 64%; /* zinc-400 */
+    --accent: 240 4% 14%;
+    --accent-foreground: 240 5% 84%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 4% 16%;           /* surface-4 #27272a */
+    --input: 240 4% 16%;
+    --ring: 46 97% 48%;             /* oracle-500 */
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  /* v4.8: Mobile PWA stability — prevent zoom/resize instability */
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    touch-action: manipulation; /* allow scroll+tap, prevent pinch-zoom */
+    overflow: hidden;
+    height: 100%;
+    /* Safe area for notch devices (iPhone X+) */
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+
+  body {
+    @apply bg-surface-0 text-zinc-200;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    font-weight: 450;
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none; /* prevent pull-to-refresh / overscroll bounce */
+    -webkit-overflow-scrolling: touch;
+  }
+
+  ::selection {
+    @apply bg-oracle-500/30 text-oracle-100;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-5 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-zinc-500;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-zinc-900/80 backdrop-blur-xl border border-zinc-800/50;
+  }
+
+  .glass-hover {
+    @apply glass transition-all duration-300 hover:bg-zinc-800/80 hover:border-zinc-700/50;
+  }
+
+  .glow-oracle {
+    box-shadow: 0 0 40px -10px theme("colors.oracle.500 / 0.15");
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-oracle-400 via-oracle-300 to-oracle-500 bg-clip-text text-transparent;
+  }
+
+  .shimmer-bg {
+    background: linear-gradient(
+      90deg,
+      theme("colors.surface.3") 25%,
+      theme("colors.surface.4") 50%,
+      theme("colors.surface.3") 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+}
+
+@layer utilities {
+  .prose-oracle {
+    @apply leading-snug text-zinc-200;
+    font-size: 15px;
+  }
+  .prose-oracle h1,
+  .prose-oracle h2,
+  .prose-oracle h3 {
+    @apply text-zinc-100 font-semibold mt-2 mb-1;
+  }
+  .prose-oracle h1 { @apply text-base; }
+  .prose-oracle h2 { @apply text-sm; }
+  .prose-oracle h3 { font-size: 14px; }
+  .prose-oracle p { @apply mb-1.5; }
+  .prose-oracle p:last-child { @apply mb-0; }
+  .prose-oracle ul, .prose-oracle ol { @apply mb-1.5 pl-4; }
+  .prose-oracle ul { @apply list-disc; }
+  .prose-oracle ol { @apply list-decimal; }
+  .prose-oracle li { @apply mb-0; }
+  .prose-oracle code {
+    @apply bg-surface-4 text-oracle-300 px-1 py-0.5 rounded text-xs font-mono;
+  }
+  .prose-oracle pre {
+    @apply bg-surface-1 border border-surface-4 rounded-lg p-3 mb-2 overflow-x-auto text-xs;
+  }
+  .prose-oracle pre code {
+    @apply bg-transparent p-0;
+  }
+  .prose-oracle blockquote {
+    @apply border-l-2 border-oracle-500/50 pl-3 italic text-zinc-400 mb-2 text-[13px];
+  }
+  .prose-oracle strong { @apply text-zinc-100 font-semibold; }
+  .prose-oracle a { @apply text-oracle-400 underline underline-offset-2 hover:text-oracle-300; }
+  .prose-oracle hr { @apply border-surface-4/30 my-3; }
+  .prose-oracle table {
+    @apply w-full text-xs border-collapse mb-3 block overflow-x-auto;
+  }
+  .prose-oracle thead tr {
+    @apply border-b border-surface-4/50;
+  }
+  .prose-oracle th {
+    @apply text-left text-zinc-400 font-medium px-3 py-1.5 whitespace-nowrap;
+  }
+  .prose-oracle td {
+    @apply px-3 py-1.5 border-b border-surface-4/20 text-zinc-200;
+  }
+  .prose-oracle tbody tr:hover td {
+    @apply bg-surface-3/30;
+  }
+}
+
+/* Hide scrollbar for horizontal scroll containers (mode selector, etc.) */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Sidebar slide-in animation */
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+.animate-slide-in-left { animation: slideInLeft 0.2s ease-out; }
+
+._diag-hidden { display: none; position: fixed; bottom: 8px; left: 8px; right: 8px; font: 11px monospace; color: #888; z-index: 99999; text-align: center; }
+._diag-visible { display: block; position: fixed; bottom: 8px; left: 8px; right: 8px; font: 11px monospace; color: #888; z-index: 99999; text-align: center; }

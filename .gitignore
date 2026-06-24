@@ -1,0 +1,100 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/*.mdc
+
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+
+# Environment & Secrets
+.env
+# Ignore all dotenv variants (.env.local, .env.development, .env.production, etc.)
+# including those in subdirectories (e.g. web/.env.local). The leading `.env`
+# rule only matches a file literally named `.env`, so these suffix forms are
+# covered explicitly below.
+.env.*
+*.env
+# ...but always keep example/template files in the repo.
+!.env.example
+!*.env.example
+!.env.*.example
+*.key
+*.pem
+*.p12
+*.pfx
+*.secret
+
+# Runtime data (local only, not in repo)
+data/chromadb/
+data/sessions/
+data/notes/
+data/logs/
+data/profile.json
+data/cognitive_profile.json
+
+# Databases — contain user credentials, session data, personal info (P0 security)
+data/*.db
+data/*.db-shm
+data/*.db-wal
+data/*.db-journal
+
+# Commercial strategy (private)
+docs/vision/
+
+# Test artifacts
+.coverage
+htmlcov/
+.pytest_cache/
+server.log
+
+# Local Netlify folder
+.netlify
+
+# Cloudflare Pages local cache
+.wrangler/
+
+# Deploy secrets (never commit)
+deploy/.env
+deploy/*.env
+
+# Temporary credential files (NEVER commit)
+# (covered by .env / *.key / *.secret rules above; add project-specific names here if needed)
+
+# TypeScript build info (causes git conflicts on server)
+tsconfig.tsbuildinfo
+web/tsconfig.tsbuildinfo
+
+# User data files (generated at runtime, not in repo)
+data/user_*.json
+uv.lock
+
+# Test result artifacts
+test-results/
+web/test-results/
+
+# User uploads (runtime)
+data/uploads/

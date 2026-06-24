@@ -1,0 +1,18 @@
+{
+  "name": "Synthora - 多模型AI聚合",
+  "short_name": "Synthora",
+  "description": "多个AI模型共同分析、辩论、综合，给你超越任何单一模型的答案",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090b",
+  "theme_color": "#a78bfa",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/oracle.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

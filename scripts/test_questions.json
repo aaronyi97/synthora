@@ -1,0 +1,103 @@
+{
+  "version": "1.0",
+  "description": "Synthora 质量评估基准题库 — 覆盖事实/争议/技术/文化/时效/推理 6 大类",
+  "evaluator_model": "claude_opus_thinking",
+  "questions": [
+    {
+      "id": "fact_01",
+      "category": "factual",
+      "question": "量子纠缠是否允许超光速通信？请从物理学原理角度解释。",
+      "difficulty": "medium",
+      "expected_modes": ["light", "deep"],
+      "notes": "标准物理知识题，有明确的正确答案（不能），但需要解释 no-communication theorem。"
+    },
+    {
+      "id": "fact_02",
+      "category": "factual",
+      "question": "人类基因组中有多少个蛋白质编码基因？这个数字在过去20年的研究中是如何变化的？",
+      "difficulty": "medium",
+      "expected_modes": ["light", "deep"],
+      "notes": "事实+演变，答案约 20,000-25,000，但具体数字历经修订。考察模型是否了解科学共识的变化。"
+    },
+    {
+      "id": "controversy_01",
+      "category": "controversial",
+      "question": "AI 是否应该拥有法律人格？请从支持和反对两方面分析。",
+      "difficulty": "hard",
+      "expected_modes": ["deep", "research"],
+      "notes": "争议话题，没有唯一正确答案。评估模型是否能平衡呈现多方观点而非偏向某一方。"
+    },
+    {
+      "id": "controversy_02",
+      "category": "controversial",
+      "question": "全民基本收入（UBI）是解决AI时代大规模失业的有效方案吗？",
+      "difficulty": "hard",
+      "expected_modes": ["deep", "research"],
+      "notes": "经济学争议，涉及正方（社会安全网/创新激励）和反方（通胀/劳动激励/财政可持续性）。"
+    },
+    {
+      "id": "tech_01",
+      "category": "technical",
+      "question": "在设计高并发系统时，微服务架构和单体架构各自的优势和劣势是什么？在什么情况下应该选择哪种？",
+      "difficulty": "medium",
+      "expected_modes": ["light", "deep"],
+      "notes": "技术取舍题，好的回答应区分团队规模、业务阶段、运维能力等维度。"
+    },
+    {
+      "id": "tech_02",
+      "category": "technical",
+      "question": "解释 Transformer 架构中 Self-Attention 机制的工作原理，以及为什么它比传统 RNN 更适合处理长序列？",
+      "difficulty": "hard",
+      "expected_modes": ["deep", "research"],
+      "notes": "技术深度题，需要解释 Q/K/V、softmax attention、位置编码、并行化优势等。用于测试 smart_routing CODING/TECHNICAL 路由。"
+    },
+    {
+      "id": "culture_01",
+      "category": "cultural",
+      "question": "中医的科学性争议：支持者和反对者的核心论据分别是什么？有没有可能找到一个调和的立场？",
+      "difficulty": "hard",
+      "expected_modes": ["deep", "research"],
+      "notes": "中国文化语境下的争议话题。评估模型是否能既尊重传统医学价值又坚持循证医学标准。"
+    },
+    {
+      "id": "culture_02",
+      "category": "cultural",
+      "question": "日本的'匠人精神'（Monozukuri）和德国的'隐形冠军'企业模式有什么异同？对中国制造业升级有什么启示？",
+      "difficulty": "medium",
+      "expected_modes": ["deep", "research"],
+      "notes": "跨文化比较分析，需要了解日德工业文化差异，并能联系中国实际。"
+    },
+    {
+      "id": "reasoning_01",
+      "category": "reasoning",
+      "question": "一个房间里有100个人。99%是左撇子。要让左撇子的比例降到98%，需要多少左撇子离开房间？",
+      "difficulty": "medium",
+      "expected_modes": ["light"],
+      "notes": "数学推理陷阱题。正确答案是50人（99个左撇子中50人离开，剩49/50=98%）。很多模型会算错。"
+    },
+    {
+      "id": "reasoning_02",
+      "category": "reasoning",
+      "question": "如果所有的花都需要水，而玫瑰是花，那么可以确定地得出'所有不需要水的东西都不是玫瑰'这个结论吗？请用逻辑推理解释。",
+      "difficulty": "medium",
+      "expected_modes": ["light", "deep"],
+      "notes": "三段论/逆否命题推理。答案是肯定的（逆否命题等价）。考察逻辑推理的严密性。"
+    },
+    {
+      "id": "meta_01",
+      "category": "meta_cognition",
+      "question": "在信息过载时代，个人如何建立有效的知识管理体系？请给出一个可操作的框架。",
+      "difficulty": "medium",
+      "expected_modes": ["deep"],
+      "notes": "开放性实用问题。好的回答应该提供结构化框架（如 PARA、Zettelkasten 等），而非空泛建议。"
+    },
+    {
+      "id": "meta_02",
+      "category": "meta_cognition",
+      "question": "批判性思维和创造性思维之间是互补的还是矛盾的？如何在日常决策中平衡两者？",
+      "difficulty": "hard",
+      "expected_modes": ["deep", "research"],
+      "notes": "认知科学/哲学交叉题。好的答案应该引用双过程理论、收敛/发散思维等框架。"
+    }
+  ]
+}
