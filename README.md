@@ -1,3 +1,5 @@
+> **Status: This is my origin story, not my current main line. The project that led me to AI Workflow Diagnostics. Current main line: DoneTrace.**
+
 # Synthora — 多模型智能编排系统
 
 > **让你变聪明的 AI 陪伴者，不是更快的搜索引擎。**
