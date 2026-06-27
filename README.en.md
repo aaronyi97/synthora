@@ -1,38 +1,142 @@
-# Synthora - where this all started
+# Synthora — where my path to DoneTrace started
 
-English-only edition. Chinese legacy notes are kept in [README.md](README.md).
+*English mirror. The primary, Chinese-first README is [README.md](README.md).*
 
-> **Synthora is not the current main line.** It is the origin story: an early,
-> archived multi-model orchestration experiment that led to my current work on
-> AI Workflow Diagnostics. **The current main line is [DoneTrace][donetrace].**
+> **Synthora is not my current product.** It is the origin story and public
+> evidence: an early, archived multi-model orchestration experiment that led me
+> to the work I do now on AI Workflow Diagnostics. The current main line is
+> **[DoneTrace][donetrace]**.
 
-Synthora ran several LLMs in parallel, used a judge model to cross-check and
-synthesize their answers, and made model disagreement visible. I am keeping it
-public as evidence of the path that led to DoneTrace, not as the project I
-recommend people run today.
+In one line: Synthora ran several LLMs in parallel, used an independent judge
+model to cross-check and synthesize their answers, and made the disagreement
+between models visible. It runs, and it did run in production — I just don't
+recommend it as a primary tool today.
 
-## Where this went next
+Three things you probably want to know:
 
-If you landed here from my pinned GitHub repositories, start with the active work:
+- **What it is** — a working multi-model orchestration system: six modes, a
+  Quality Gate, and visible disagreement. Full design is in the archive below.
+- **Why it's still here** — it records how I went from "multi-model
+  orchestration" to "AI workflow diagnostics." Deleting it erases that path.
+- **Where to go now** — if you came for what I build today, see **The current
+  main line** below. You don't need to run Synthora yourself.
 
-- **[DoneTrace][donetrace]** - the current main line for evidence, review, supervision, and handoff in AI workflows.
-- **[Fusion Paradigm][fusion]** - a lightweight blind second-model review protocol.
-- **Async AI Workflow Snapshot** - the service entry for async workflow diagnostics; public intake link pending.
+---
 
-## What Synthora was
+## The current main line (start here)
 
-- **Problem explored**: can multiple model answers become more reliable when disagreement is visible and a judge model reviews the synthesis?
-- **Core mechanisms**: multi-model fan-out, Quality Gate, visible disagreement, adaptive aggregation, Socratic mode, Companion routing.
-- **Stack**: Python / FastAPI backend, SQLite storage, React / Vite frontend, OpenAI-compatible model adapters.
-- **Status**: archived origin project. The active direction is DoneTrace and AI Workflow Diagnostics.
-- **License**: Business Source License 1.1. See [LICENSE](LICENSE).
+- **[DoneTrace][donetrace]** — my current main line, in AI Workflow Diagnostics.
+  It targets where AI work actually breaks: **"done" with no evidence**,
+  **review that just confirms itself**, **context lost along the way**, and
+  **weak handoff**.
+- **[Fusion Paradigm][fusion]** — a lightweight protocol where a second model
+  reviews blind, without seeing the first model's conclusion, to fight
+  models rubber-stamping each other.
+- **Async AI Workflow Snapshot** — the service entry for an async, one-shot
+  diagnostic snapshot of an AI workflow. **Public intake form pending** — not
+  open yet.
 
-## Why keep it public?
+## From Synthora to DoneTrace
 
-Synthora shows the starting point: I first tried to build a multi-model AI
-orchestration product. The real lesson was larger than orchestration. AI work
-breaks when "done" is not evidenced, review is self-confirming, context is lost,
-and handoff is weak. That lesson became DoneTrace.
+I first set out to build a multi-model orchestration product on a simple bet:
+more models, better synthesis, more trustworthy answers. Synthora delivered that
+— parallel fan-out, an independent judge, a synthesized final answer, and the
+disagreement laid out for you.
+
+But the real lesson was bigger than orchestration. AI work tends to break not
+because a single answer is weak, but because "done" carries no evidence, review
+confirms itself, context leaks away, and handoff is sloppy. Those are
+**workflow-level** problems, and no amount of orchestration fixes them. That
+realization became DoneTrace. Synthora stays here as the first stop on that road.
+
+---
+
+## Archived project
+
+> Below is how Synthora worked back then (internal codename `agoracle`, frozen at
+> v2.8.8), kept **only as a historical archive and public evidence**. It is not
+> the current main line. For active work, go to [DoneTrace][donetrace].
+
+### What made it different
+
+| Capability | What it did |
+|------|------|
+| **Quality Gate (3 paths)** | synthesize / take the best single model / flag low confidence — so synthesis never dilutes the best answer |
+| **Visible disagreement** | shows where models agree and where they split, so you can judge confidence |
+| **Adaptive aggregation** | strategy by question type: vote on facts, take-best on creative, keep multiple views on contested |
+| **Socratic training** | exposes divergence to push independent reasoning, tracked across sessions |
+| **Companion Dispatcher** | smart routing + post-answer guidance |
+| **Next-Step Guidance** | suggests what to explore next from the answer and the user profile |
+
+### Six modes
+
+| Mode | Core value | Latency | Model strategy |
+|------|---------|------|--------|
+| **Light** | Fast + de-hallucinated | <15s | race 3, keep 1 |
+| **Deep** | Deep reasoning + double critique | 2–5 min | 6→5 + Judge + 2 refine rounds |
+| **Research** | Full research + structured report | 3–10 min | 6→5 + 2-layer MoA + 3 refine rounds |
+| **Socratic** | Surface disagreement + train thinking | multi-turn | 3→2 + divergence analysis + guidance |
+| **Roundtable** | Multi-model roundtable (experimental) | multi-turn | configurable |
+| **Companion** | Smart routing, auto-picks the mode | varies | — |
+
+### Architecture
+
+Synthora used a **hexagonal (ports & adapters) architecture** to keep domain
+logic decoupled from external dependencies (LLM providers, search, database, web
+framework). The domain layer depends only on abstract ports; concrete adapters
+(OpenAI / Claude / Gemini / Kimi / DeepSeek / Perplexity, SQLite, Tavily) plug in
+on the outside. A query flows through a composable pipeline — route → parallel
+fan-out → search → verify → aggregate → refine → quality gate — with stages
+decoupled over an **EventBus** that powers SSE streaming and async layer-2
+quality sampling. Aggregation is **adaptive**: it classifies the question type
+first, then the Quality Gate decides whether to synthesize, take the best single
+answer, or flag low confidence.
+
+Roughly: `domain/` (logic), `ports/` (abstract ports), `services/`
+(orchestration, aggregation, streaming), `adapters/` (provider / storage / search
+/ session), `api/` (FastAPI), `cli/` (command line).
+
+### Stack
+
+| Layer | Tech |
+|------|------|
+| Architecture | Hexagonal + pipeline + event-driven + adaptive aggregation |
+| Backend | Python 3.11+ / FastAPI / Uvicorn / uvloop (async) |
+| Frontend | React 19 + Vite 6 + TypeScript + TailwindCSS + Framer Motion |
+| Models | httpx async + OpenAI-compatible unified adapter (OpenAI / Claude / Gemini / Kimi / DeepSeek / Perplexity) |
+| Search | Tavily + native web search on some models |
+| Storage | SQLite / aiosqlite (users · sessions · memory-lite) |
+| Config | YAML + env + feature flags |
+| CLI | Click + Rich |
+
+### Archived run notes
+
+> These commands only reproduce the archived build; they are not the recommended
+> way to use anything today. For the current main line, go to [DoneTrace][donetrace].
+
+```bash
+# Backend — install deps
+uv sync                       # or: pip install -r requirements.txt
+
+# Backend — configure keys
+cp .env.example .env          # fill in the model keys/base_urls you enable; roster lives in config.yaml
+
+# Backend — start the API (or use uvicorn directly)
+agoracle serve --host 127.0.0.1 --port 8000 --reload
+
+# Backend — ask straight from the CLI, no server needed
+agoracle ask "your question" --mode deep
+
+# Frontend
+cd web && npm install && npm run dev
+```
+
+API docs are served at `http://127.0.0.1:8000/docs` once the backend is up.
+
+### License
+
+Business Source License 1.1 (BSL 1.1). See [LICENSE](./LICENSE). For other
+licensing terms, open an issue in this repository.
 
 [donetrace]: https://github.com/aaronyi97/ai-collab-open-system
 [fusion]: https://github.com/aaronyi97/fusion-paradigm
