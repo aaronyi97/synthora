@@ -1,6 +1,6 @@
 # Synthora - where this all started
 
-English-first edition. English-only mirror: [README.en.md](README.en.md). Chinese legacy notes are archived at the bottom of this file.
+English-only edition. Chinese legacy notes are kept in [README.md](README.md).
 
 > **Synthora is not the current main line.** It is the origin story: an early,
 > archived multi-model orchestration experiment that led to my current work on
@@ -33,39 +33,6 @@ Synthora shows the starting point: I first tried to build a multi-model AI
 orchestration product. The real lesson was larger than orchestration. AI work
 breaks when "done" is not evidenced, review is self-confirming, context is lost,
 and handoff is weak. That lesson became DoneTrace.
-
----
-
-## Archive - early Chinese notes (legacy)
-
-> 以下为 Synthora 早期中文说明的摘要，**仅作历史存档**。它不代表当前主线，也不是当前推荐运行入口。
-> 当前主线是 **DoneTrace**。
-
-### 早期定位
-
-早期 Synthora 并行调用多个顶级大模型，由独立评审模型交叉验证和综合。核心机制是 **Quality Gate**（防止综合稀释最佳答案）与**分歧可见化**（让用户看到模型在哪些点一致、哪些点分歧）。
-
-### 早期核心差异化
-
-| 能力 | 说明 |
-|------|------|
-| **Quality Gate 三路径** | 综合最优 / 直接采用最佳单模型 / 标记低置信度 |
-| **分歧可见化** | 展示模型间一致点和分歧点 |
-| **自适应聚合** | 按题型选择事实投票、创意取最佳、争议保留多视角 |
-| **Socratic 思维训练** | 暴露多模型分歧，引导独立推理 |
-| **Companion Dispatcher** | 智能路由与后置引导 |
-| **Next-Step Guidance** | 基于回答内容和用户画像推荐下一步 |
-
-### 历史技术轮廓
-
-| 层级 | 技术 |
-|------|------|
-| 架构 | 六边形架构 + 管道模式 + 事件驱动 + 自适应聚合 |
-| 后端 | Python / FastAPI / Uvicorn |
-| 前端 | React + Vite + TypeScript + TailwindCSS |
-| AI 通信 | OpenAI-compatible adapters |
-| 数据库 | SQLite |
-| CLI | Click + Rich |
 
 [donetrace]: https://github.com/aaronyi97/ai-collab-open-system
 [fusion]: https://github.com/aaronyi97/fusion-paradigm
