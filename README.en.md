@@ -1,6 +1,6 @@
 # Synthora — where my path to DoneTrace started
 
-*English mirror. The primary, Chinese-first README is [README.md](README.md).*
+English copy kept for direct links. The primary homepage is [README.md](README.md). Chinese version: [README.zh.md](README.zh.md).
 
 > **Synthora is not my current product.** It is the origin story and public
 > evidence: an early, archived multi-model orchestration experiment that led me
@@ -9,8 +9,8 @@
 
 In one line: Synthora ran several LLMs in parallel, used an independent judge
 model to cross-check and synthesize their answers, and made the disagreement
-between models visible. It runs, and it did run in production — I just don't
-recommend it as a primary tool today.
+between models visible. It was a real working system, not a slide deck — I just
+don't recommend it as a primary tool today.
 
 Three things you probably want to know:
 
@@ -138,5 +138,5 @@ API docs are served at `http://127.0.0.1:8000/docs` once the backend is up.
 Business Source License 1.1 (BSL 1.1). See [LICENSE](./LICENSE). For other
 licensing terms, open an issue in this repository.
 
-[donetrace]: https://github.com/aaronyi97/ai-collab-open-system
+[donetrace]: https://github.com/aaronyi97/donetrace
 [fusion]: https://github.com/aaronyi97/fusion-paradigm
